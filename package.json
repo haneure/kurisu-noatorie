@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/eslint-plugin-next": "^15.3.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
@@ -37,6 +38,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
     "tailwindcss-animate": "^1.0.7",

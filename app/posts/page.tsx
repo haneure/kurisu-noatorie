@@ -1,4 +1,4 @@
-import Posts from '@/components/posts'
+import PostsWithSearch from '@/components/posts-with-search'
 import { getPosts } from '@/lib/posts'
 import React from 'react'
 
@@ -10,7 +10,7 @@ export default async function PostsPage() {
       <div className='container mx-auto max-w-3xl px-4'>
         <h1 className='title mb-12'>Posts</h1>
 
-        <Posts posts={posts} />
+        <PostsWithSearch posts={posts} />
       </div>
     </section>
   )

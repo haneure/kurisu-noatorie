@@ -10,18 +10,27 @@ export default function Posts({ posts }: { posts: PostMetadata[] }) {
         <li key={post.slug}>
           <Link
             href={`/posts/${post.slug}`}
-            className='flex flex-col justify-between gap-x-4 gap-y-1 sm:flex-row'
+            className='group relative flex flex-col justify-between gap-x-4 gap-y-1 overflow-hidden rounded-sm p-4 sm:flex-row'
           >
-            <div className='max-w-lg'>
+            {post.image && (
+              <div
+                className='absolute inset-0 bg-cover bg-center opacity-30 blur-sm transition-transform duration-300 group-hover:scale-105'
+                style={{ backgroundImage: `url(${post.image})` }}
+              />
+            )}
+            <div className='relative z-10 max-w-lg'>
               <p className='text-lg font-semibold'>{post.title}</p>
-              <p className='text-muted-foreground mt-1 line-clamp-2'>
-                {post.summary}
-              </p>
+              <p className='text-muted-foreground mt-1'>{post.summary}</p>
             </div>
-
-            <div className='mt-2 text-sm font-light sm:mt-0 sm:text-right'>
-              {post.publishedAt && <p>{formatDate(post.publishedAt)}</p>}
-              {post.author && <p>{post.author}</p>}{' '}
+            <div className='relative z-10 mt-2 sm:mt-0 sm:text-right'>
+              <div className=''>
+                {post.publishedAt && (
+                  <p className='text-sm font-medium'>
+                    {formatDate(post.publishedAt)}
+                  </p>
+                )}
+                {post.author && <p className='text-xs'>{post.author}</p>}
+              </div>
             </div>
           </Link>
         </li>

@@ -22,6 +22,8 @@ export default function Posts({ posts }: { posts: PostMetadata[] }) {
               <p className='text-lg font-semibold'>{post.title}</p>
               <p className='text-muted-foreground mt-1'>{post.summary}</p>
             </div>
+
+            {/* Handle when minimizing, publishedAt and author text is clumped together vertically on the right  */}
             <div className='relative z-10 mt-2 sm:mt-0 sm:text-right'>
               <div className=''>
                 {post.publishedAt && (

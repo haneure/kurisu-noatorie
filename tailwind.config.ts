@@ -26,6 +26,16 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', 'sans-serif'],
         serif: ['var(--font-serif)', 'serif'],
+      },
+      colors: {
+      'hover-overlay-initial': {
+          DEFAULT: 'rgba(255, 255, 255, 0.5)',  // light mode initial (white/50)
+          dark: 'rgba(0, 0, 0, 0.5)',           // dark mode initial (black/50)
+        },
+        'hover-overlay-hover': {
+          DEFAULT: 'rgba(0, 0, 0, 0.1)',        // light mode hover (black/10)
+          dark: 'rgba(255, 255, 255, 0.1)',      // dark mode hover (white/10)
+        },
       }
     },
   },

@@ -14,7 +14,7 @@ export async function generateAsyncParams() {
   return slugs
 }
 
-export default async function Pgst({ params }: { params: { slug: string } }) {
+export default async function Post({ params }: { params: { slug: string } }) {
   const { slug } = params
   const posts: PostData | null = await getPostBySlug(slug, 'posts')
 

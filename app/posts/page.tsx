@@ -3,7 +3,7 @@ import { getPosts } from '@/lib/posts'
 import React from 'react'
 
 export default async function PostsPage() {
-  const posts = await getPosts()
+  const posts = await getPosts('posts')
 
   return (
     <section className='pt-40 pb-24'>

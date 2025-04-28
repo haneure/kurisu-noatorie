@@ -8,15 +8,15 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 export async function generateAsyncParams() {
-  const posts = await getPosts()
+  const posts = await getPosts('posts')
   const slugs = posts.map(post => ({ slug: post.slug }))
 
   return slugs
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
+export default async function Pgst({ params }: { params: { slug: string } }) {
   const { slug } = params
-  const posts: PostData | null = await getPostBySlug(slug)
+  const posts: PostData | null = await getPostBySlug(slug, 'posts')
 
   if (!posts) {
     notFound()
@@ -58,6 +58,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
           <MDXContent source={content} />
         </main>
 
+        {/* Can also replace this with some comment box */}
         {/* <footer className='mt-16'>
                 <NewsletterForm />>
             </footer> */}

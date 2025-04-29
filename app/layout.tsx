@@ -3,7 +3,7 @@ import Header from '@/components/header'
 import Providers from '@/components/providers'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Zen_Kaku_Gothic_New, Zen_Maru_Gothic } from 'next/font/google'
 import './globals.css'
 
 // const geistSans = Geist({
@@ -16,9 +16,14 @@ import './globals.css'
 //   subsets: ['latin']
 // })
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
+const kakuGothic = Zen_Kaku_Gothic_New({
+  weight: '700',
+  subsets: ['latin'],
+  variable: '--font-sans'
+})
 
-const playfair = Playfair_Display({
+const gothic = Zen_Maru_Gothic({
+  weight: '900',
   subsets: ['latin'],
   variable: '--font-serif'
 })
@@ -38,8 +43,8 @@ export default function RootLayout({
       <body
         className={cn(
           'flex min-h-screen flex-col font-sans antialiased',
-          inter.variable,
-          playfair.variable
+          kakuGothic.variable,
+          gothic.variable
         )}
       >
         <Providers>

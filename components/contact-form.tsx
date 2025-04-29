@@ -1,15 +1,15 @@
 'use client'
 
-import { z } from 'zod'
-import Link from 'next/link'
-import { toast } from 'sonner'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ContactFormSchema } from '@/lib/schemas'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { sendEmail } from '@/lib/actions'
+import { ContactFormSchema } from '@/lib/schemas'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
 
 type Inputs = z.infer<typeof ContactFormSchema>
 
@@ -144,10 +144,11 @@ export default function ContactForm() {
             </Button>
           </div>
           <p className='text-muted-foreground mt-4 text-xs'>
-            By submitting this form, I agree to the{' '}
+            Rest assured, I will not share / use your data for anything else.
+            {/* By submitting this form, I agree to the{' '}
             <Link href='/privacy' className='font-bold'>
               privacy&nbsp;policy.
-            </Link>
+            </Link> */}
           </p>
         </form>
       </div>

@@ -1,10 +1,10 @@
 'use server'
 
-import { string, z } from 'zod'
-import { ContactFormSchema, NewsletterFormSchema } from './schemas'
-import { logger } from './logger'
 import EmailTemplate from '@/components/templates/email-template'
 import { Resend } from 'resend'
+import { string, z } from 'zod'
+import { logger } from './logger'
+import { ContactFormSchema, NewsletterFormSchema } from './schemas'
 
 type ContactFormInputs = z.infer<typeof ContactFormSchema>
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -47,4 +47,31 @@ export async function sendEmail(data: ContactFormInputs) {
 
 export async function subscribe(data: { email: string }) {
   const result = NewsletterFormSchema.safeParse(data)
+
+  if (result.error) {
+    logger.error('Validation error:', result.error.format())
+    return { error: result.error.format() }
+  }
+
+  try {
+    const { email } = result.data
+
+    logger.info('Add email to audience, email:', result.data)
+
+    const { data, error } = await resend.contacts.create({
+      email: email,
+      audienceId: process.env.RESEND_AUDIENCE_ID as string
+    })
+
+    if (!data || error) {
+      throw new Error('Error adding email, error: ' + error?.message)
+    }
+
+    logger.info('Email added successfully:', data)
+
+    return { success: true }
+  } catch ( error) {
+    logger.error('Error adding email:', error)
+    return { error: 'Error sending email' }
+  }
 }

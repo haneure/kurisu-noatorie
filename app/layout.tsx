@@ -3,7 +3,7 @@ import Header from '@/components/header'
 import Providers from '@/components/providers'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
-import { Inter, Zen_Kaku_Gothic_New, Zen_Maru_Gothic } from 'next/font/google'
+import { Zen_Kaku_Gothic_New, Zen_Maru_Gothic } from 'next/font/google'
 import './globals.css'
 
 // const geistSans = Geist({

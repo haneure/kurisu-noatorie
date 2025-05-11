@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { PostMetadata } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
+import { Badge } from './ui/badge'
 
 export default function Projects({ projects }: { projects: PostMetadata[] }) {
   return (
@@ -42,6 +43,13 @@ export default function Projects({ projects }: { projects: PostMetadata[] }) {
             <div className='mt-4 text-center transition-all duration-500 ease-in-out peer-hover:translate-y-[-2.5rem] peer-hover:opacity-0'>
               <h3 className='text-lg font-semibold'>{project.title}</h3>
               <p className='text-muted-foreground text-sm'>{project.summary}</p>
+            </div>
+
+            <div className='mt-4 flex justify-center gap-x-4 text-center opacity-0 transition-all duration-500 ease-in-out peer-hover:translate-y-[-2.5rem] peer-hover:opacity-100'>
+              <Badge variant='secondary'>Badge Se</Badge>
+              <Badge variant='destructive'>Badge Dest</Badge>
+              <Badge variant='default'>Badge D</Badge>
+              <Badge variant='noatorie'>Badge N</Badge>
             </div>
           </Link>
         </li>

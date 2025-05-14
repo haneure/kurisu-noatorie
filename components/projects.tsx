@@ -9,7 +9,7 @@ export default function Projects({ projects }: { projects: PostMetadata[] }) {
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
       {projects.map(project => (
-        <li key={project.slug}>
+        <li key={project.slug} className='peer group'>
           <Link href={`/projects/${project.slug}`} className='block'>
             {/* 👇 Group only wraps the image now */}
             <div className='group bg-muted peer relative h-72 w-full overflow-hidden rounded-lg sm:h-60'>
@@ -45,11 +45,15 @@ export default function Projects({ projects }: { projects: PostMetadata[] }) {
               <p className='text-muted-foreground text-sm'>{project.summary}</p>
             </div>
 
-            <div className='mt-4 flex justify-center gap-x-4 text-center opacity-0 transition-all duration-500 ease-in-out peer-hover:translate-y-[-2.5rem] peer-hover:opacity-100'>
-              <Badge variant='secondary'>Badge Se</Badge>
-              <Badge variant='destructive'>Badge Dest</Badge>
-              <Badge variant='default'>Badge D</Badge>
-              <Badge variant='noatorie'>Badge N</Badge>
+            <div className='flex w-full flex-wrap justify-center gap-2 p-2 text-center opacity-0 transition-all duration-500 ease-in-out peer-hover:translate-y-[-3.5rem] peer-hover:opacity-100'>
+              <Badge variant='default'>Godot</Badge>
+              <Badge variant='default'>Python</Badge>
+              <Badge variant='default'>Go</Badge>
+              <Badge variant='default'>DevOps</Badge>
+              <Badge variant='default'>Godot</Badge>
+              <Badge variant='default'>Python</Badge>
+              <Badge variant='default'>Go</Badge>
+              <Badge variant='default'>DevOps</Badge>
             </div>
           </Link>
         </li>

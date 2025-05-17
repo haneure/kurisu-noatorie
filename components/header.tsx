@@ -13,13 +13,13 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useRef, useState } from 'react'
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger
-} from './ui/context-menu'
+import React, { useState } from 'react'
+// import {
+//   ContextMenu,
+//   ContextMenuContent,
+//   ContextMenuItem,
+//   ContextMenuTrigger
+// } from './ui/context-menu'
 import {
   Tooltip,
   TooltipContent,
@@ -81,12 +81,23 @@ export default function Header() {
                 className='font-serif text-2xl font-bold'
                 onClick={handleLinkClick}
               >
-                <DropdownMenuLabel>Back to Noatorie&apos;s</DropdownMenuLabel>
+                {/* <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild> */}
+                      <DropdownMenuLabel>Back to Noatorie&apos;s</DropdownMenuLabel>
+                    {/* </TooltipTrigger>
+                    <TooltipContent>
+                      Double click to go back to the main page!
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider> */}
+
               </Link>
               <DropdownMenuSeparator />
               <Link href='https://haneure-old.vercel.app/'>
                 <DropdownMenuItem className='cursor-pointer'>
-                  <img src='/cat.svg' alt='cat' className='h-4 w-4' />
+                  <Image src='/cat.svg' alt='cat' width={24} height={24}></Image>
+                  {/* <img src='/cat.svg' alt='cat' className='h-4 w-4' /> */}
                   Old portfolio
                 </DropdownMenuItem>
               </Link>

@@ -7,15 +7,19 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-export async function generateAsyncParams() {
+export async function generateStaticParams() {
   const posts = await getPosts('posts')
-  const slugs = posts.map(post => ({ slug: post.slug }))
-
-  return slugs
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
-  const { slug } = params
+export default async function Post({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
   const posts: PostData | null = await getPostBySlug(slug, 'posts')
 
   if (!posts) {

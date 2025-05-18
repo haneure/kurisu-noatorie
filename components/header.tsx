@@ -17,7 +17,7 @@ import React, { useState } from 'react'
 // import {
 //   ContextMenu,
 //   ContextMenuContent,
-//   ContextMenuItem,
+//   ContextMenuItem,P
 //   ContextMenuTrigger
 // } from './ui/context-menu'
 import {
@@ -84,19 +84,23 @@ export default function Header() {
                 {/* <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild> */}
-                      <DropdownMenuLabel>Back to Noatorie&apos;s</DropdownMenuLabel>
-                    {/* </TooltipTrigger>
+                <DropdownMenuLabel>Back to Noatorie&apos;s</DropdownMenuLabel>
+                {/* </TooltipTrigger>
                     <TooltipContent>
                       Double click to go back to the main page!
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider> */}
-
               </Link>
               <DropdownMenuSeparator />
               <Link href='https://haneure-old.vercel.app/'>
                 <DropdownMenuItem className='cursor-pointer'>
-                  <Image src='/cat.svg' alt='cat' width={24} height={24}></Image>
+                  <Image
+                    src='/cat.svg'
+                    alt='cat'
+                    width={24}
+                    height={24}
+                  ></Image>
                   {/* <img src='/cat.svg' alt='cat' className='h-4 w-4' /> */}
                   Old portfolio
                 </DropdownMenuItem>

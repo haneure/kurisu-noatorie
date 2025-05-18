@@ -1,3 +1,4 @@
+import { CatChatProvider } from '@/components/cats/cat-chat-provider'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Providers from '@/components/providers'
@@ -49,7 +50,9 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main className='grow'>{children}</main>
+          <main className='grow'>
+            <CatChatProvider>{children}</CatChatProvider>
+          </main>
           <Footer />
         </Providers>
       </body>

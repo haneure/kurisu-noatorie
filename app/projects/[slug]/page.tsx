@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 
-import { formatDate } from '@/lib/utils'
 import MDXContent from '@/components/mdx-content'
-import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { getPostBySlug, getPosts } from '@/lib/posts'
+import { formatDate } from '@/lib/utils'
+import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
@@ -17,9 +17,9 @@ export async function generateStaticParams() {
 export default async function Project({
   params
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = params
+  const { slug } = await params
   const project = await getPostBySlug(slug, 'projects')
 
   if (!project) {

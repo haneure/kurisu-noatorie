@@ -9,13 +9,14 @@ import React from 'react'
 
 export async function generateStaticParams() {
   const posts = await getPosts('posts')
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+
+  const slugs = posts.map(post => ({ slug: post.slug }))
+
+  return slugs
 }
 
-export default async function Post({
-  params,
+export default async function Page({
+  params
 }: {
   params: Promise<{ slug: string }>
 }) {

@@ -24,6 +24,7 @@ export default function ThemeToggle() {
       onClick={() => {
         setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
       }}
+      className='hover:scale-120 transition-transform duration-200 ease-in-out'
     >
       {resolvedTheme === 'dark' ? (
         <SunIcon className='size-4 text-orange-300' />

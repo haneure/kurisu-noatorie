@@ -13,6 +13,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Menu } from 'lucide-react'
 import React, { useState } from 'react'
 // import {
 //   ContextMenu,
@@ -26,6 +27,15 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from './ui/tooltip'
+
+const NAV_ITEMS = [
+  { href: '/posts', label: 'Posts' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/other', label: 'Other' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/test1', label: 'Test 1' },
+  { href: '/test2', label: 'Test 2' },
+]
 
 export default function Header() {
   const router = useRouter()
@@ -68,7 +78,7 @@ export default function Header() {
                       />
                     </TooltipTrigger>
                     <TooltipContent>
-                      Click the logo to access more sites!
+                      Click the logo to find more of my sites!
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -130,23 +140,40 @@ export default function Header() {
           </ContextMenu> */}
         </div>
 
-        <ul className='text-primary flex flex-grow items-center justify-center gap-6 pr-4 font-mono sm:gap-10'>
-          <li className='hover:text-foreground transition-colors hover:underline hover:underline-offset-[4px]'>
-            <Link href='/posts'>Posts</Link>
-          </li>
-          <li className='hover:text-foreground transition-colors hover:underline hover:underline-offset-[4px]'>
-            <Link href='/projects'>Projects</Link>
-          </li>
-          <li className='hover:text-foreground transition-colors hover:underline hover:underline-offset-[4px]'>
-            <Link href='/other'>Other</Link>
-          </li>
-          <li className='hover:text-foreground transition-colors hover:underline hover:underline-offset-[4px]'>
-            <Link href='/contact'>Contact</Link>
-          </li>
-        </ul>
+        {/* Center: Desktop Nav */}
+        <div className="hidden sm:flex flex-1 justify-center">
+          <ul className="hidden sm:flex text-primary items-center justify-center gap-6 font-mono">
+            {NAV_ITEMS.map((item) => (
+              <li
+                key={item.href}
+                className="hover:text-foreground transition-colors hover:underline hover:underline-offset-[4px]"
+              >
+                <Link href={item.href}>{item.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <div className='flex-none'>
-          <ThemeToggle />
+        <div className="flex items-center gap-3">
+          {/* Mobile Hamburger Menu */}
+          <div className="sm:hidden flex items-center">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="focus:outline-none hover:scale-110 transition-transform duration-200 ease-in-out">
+                <Menu className="w-6 h-6 text-primary" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {NAV_ITEMS.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link href={item.href}>{item.label}</Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          <div className='flex-none'>
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
     </header>

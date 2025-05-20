@@ -2,7 +2,8 @@ import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 import React, { JSX } from 'react'
 import { highlight } from 'sugar-high'
 
-import Counter from './counter'
+import Counter from './mdx-components/counter'
+import GiscusMdx from './mdx-components/giscus'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Code({ children, ...props }: any) {
@@ -12,7 +13,8 @@ function Code({ children, ...props }: any) {
 
 const components = {
   code: Code,
-  Counter
+  Counter,
+  GiscusMdx
 }
 
 export default function MDXContent(

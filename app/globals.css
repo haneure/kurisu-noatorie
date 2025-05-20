@@ -184,4 +184,8 @@
   .prose code span {
     @apply font-medium;
   }
+
+  .prose ol {
+    @apply list-decimal pl-6;
+  }
 }

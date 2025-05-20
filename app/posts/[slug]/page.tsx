@@ -59,7 +59,7 @@ export default async function Page({
           </p>
         </header>
 
-        <main className='prose dark:prose-invert mt-16'>
+        <main className='prose dark:prose-invert mt-8'>
           <MDXContent source={content} />
         </main>
 

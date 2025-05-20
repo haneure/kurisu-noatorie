@@ -4,6 +4,10 @@ import { highlight } from 'sugar-high'
 
 import Counter from './mdx-components/counter'
 import GiscusMdx from './mdx-components/giscus'
+import ImageWithLabel from './mdx-components/image-with-label'
+import Link from 'next/link'
+import ImageOnly from './mdx-components/image-only'
+import QuoteCard from './mdx-components/QuoteCard'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Code({ children, ...props }: any) {
@@ -14,7 +18,11 @@ function Code({ children, ...props }: any) {
 const components = {
   code: Code,
   Counter,
-  GiscusMdx
+  GiscusMdx,
+  ImageWithLabel,
+  Link,
+  ImageOnly,
+  QuoteCard
 }
 
 export default function MDXContent(

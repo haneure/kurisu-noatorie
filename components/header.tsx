@@ -28,16 +28,20 @@ import {
   TooltipTrigger
 } from './ui/tooltip'
 
-const NAV_ITEMS = [
-  { href: '/posts', label: 'Posts' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/stats', label: 'Status' }
-]
+type HeaderProps = {
+  locale: string
+}
 
-export default function Header() {
+export default function Header({ locale }: HeaderProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
+
+  const NAV_ITEMS = [
+    { href: `/${locale}/posts`, label: 'Posts' },
+    { href: `/${locale}/projects`, label: 'Projects' },
+    { href: `/${locale}/contact`, label: 'Contact' },
+    { href: `/${locale}/stats`, label: 'Status' },
+  ]
 
   const handleClick = useClickOrDoubleClick({
     singleClick: () => {

@@ -3,13 +3,22 @@ import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
 
-export default function Posts({ posts }: { posts: PostMetadata[] }) {
+type PostsProps = {
+  locale: string
+  posts: PostMetadata[]
+}
+
+export default function Posts({
+   locale, posts 
+  }: PostsProps) {
+  console.log('Props passed to Posts:', { locale, posts })
+  
   return (
     <ul className='flex flex-col gap-8'>
       {posts.map(post => (
         <li key={post.slug}>
           <Link
-            href={`/posts/${post.slug}`}
+            href={`/${locale}/posts/${post.slug}`}
             className='group relative flex flex-col justify-between gap-x-4 gap-y-1 overflow-hidden rounded-sm p-6 sm:flex-row'
           >
             {post.image && (

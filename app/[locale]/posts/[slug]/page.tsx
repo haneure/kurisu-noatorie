@@ -6,21 +6,77 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
+import { SUPPORTED_LOCALES, LOCALE_MAP } from '@/lib/metadata/locales'
+
 
 export async function generateStaticParams() {
   const posts = await getPosts('posts')
 
-  const slugs = posts.map(post => ({ slug: post.slug }))
+  // For each locale and each post slug, generate params
+  const params = []
+  for (const locale of SUPPORTED_LOCALES) {
+    for (const post of posts) {
+      params.push({ locale, slug: post.slug })
+    }
+  }
+  return params
+}
 
-  return slugs
+export async function generateMetadata({ params }: { params: { locale:string, slug: string } }): Promise<Metadata> {
+  const { locale, slug } = params
+  
+  if (!SUPPORTED_LOCALES.includes(locale as typeof SUPPORTED_LOCALES[number])) {
+    notFound()
+  }
+  
+  const post: PostData | null = await getPostBySlug(params.slug, 'posts')
+
+  if (!post) {
+    notFound()
+  }
+
+  const { metadata } = post
+  const { title, summary, image, author, publishedAt } = metadata
+
+    // Set locale code for metadata: map simple locale to proper IETF tag
+  const localeCode = LOCALE_MAP[locale as keyof typeof LOCALE_MAP] ?? 'en-US'
+
+  return {
+    title: title,
+    summary: summary,
+    openGraph: {
+      title: title,
+      summary: summary,
+      author: author,
+      url: `https://kurisu.noatorie.com/posts/${slug}`,
+      images: [{ url: image }],
+      publishedAt: publishedAt,
+      metadataBase: new URL('https://kurisu.noatorie.com'),
+      type: 'article',
+      locale: localeCode,
+      siteName: 'Kurisu Noatorie',
+      alternates: {
+        canonical: `https://kurisu.noatorie.com/${locale}/posts/${slug}`,
+        languages: {
+          'en-US': 'https://kurisu.noatorie.com/en',
+          'ja-JP': 'https://kurisu.noatorie.com/ja',
+        },
+      },
+    },
+  }
 }
 
 export default async function Page({
   params
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string, slug: string }>
 }) {
-  const { slug } = await params
+  const { locale, slug } = await params
+
+  if (!SUPPORTED_LOCALES.includes(locale as typeof SUPPORTED_LOCALES[number])) {
+    notFound()
+  }
+
   const posts: PostData | null = await getPostBySlug(slug, 'posts')
 
   if (!posts) {
@@ -34,7 +90,7 @@ export default async function Page({
     <section className='pt-32 pb-24'>
       <div className='container mx-auto max-w-3xl px-4'>
         <Link
-          href='/posts'
+          href={`/${locale}/posts`}
           className='text-muted-foreground hover:text-foreground mb-8 inline-flex items-center gap-2 text-sm font-light transition-colors'
         >
           <ArrowLeftIcon className='h-5 w-5' />

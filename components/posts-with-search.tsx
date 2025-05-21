@@ -7,7 +7,13 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { PostMetadata } from '@/lib/posts'
 
-export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
+type PostsProps  = {
+  locale: string
+  posts: PostMetadata[]
+}
+
+export default function PostsWithSearch({ locale, posts }: PostsProps) {
+  console.log("Post with search", locale)
   const [query, setQuery] = useState('')
   const filteredPosts = posts.filter(post =>
     post.title?.toLowerCase().includes(query.toLowerCase())
@@ -41,7 +47,7 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
         )}
       </div>
 
-      <Posts posts={filteredPosts} />
+      <Posts locale={locale} posts={filteredPosts} />
     </div>
   )
 }

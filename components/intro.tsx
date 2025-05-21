@@ -6,7 +6,7 @@ import kurisu from '@/public/images/placeholder.png'
 
 export default function Intro() {
   return (
-    <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-24 md:flex-row md:items-center'>
+    <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-12 md:flex-row md:items-center'>
       <div className='mt-2 flex-1 md:mt-0'>
         <h1 className='title mb-4 no-underline'>
           <span>Hey</span>, I&#39;m{' '}
@@ -17,8 +17,8 @@ export default function Intro() {
           {/* Add animation for Hey and My name, change the text from Chris - Kurisu - クリス randomly ( glitch animation / some other cool transition lol, just like in kobayashi san chi no maid dragon is cool if possible is better )  */}
           I&#39;m a software engineer based in Tangerang, Indonesia. I&#39;m
           always trying to learn new things because learning new things never
-          bores me! Recently, i just starting to create my own Indie Games using
-          Godot.
+          bores me! Recently, I just start creating my own homelab. I also
+          start making Indie Games using Godot.
         </p>
       </div>
       <div className='relative'>

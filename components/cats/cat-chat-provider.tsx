@@ -51,7 +51,9 @@ export function CatChatProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Initialize socket connection
     const socketInstance = io(
-      process.env.NEXT_PUBLIC_SOCKET_URL || window.location.origin
+      process.env.NEXT_PUBLIC_SOCKET_URL || window.location.origin, {
+          withCredentials: true,
+      }
     )
     setSocket(socketInstance)
 

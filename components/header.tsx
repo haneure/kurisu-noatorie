@@ -10,10 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Menu } from 'lucide-react'
 import React, { useState } from 'react'
 // import {
 //   ContextMenu,
@@ -31,10 +31,8 @@ import {
 const NAV_ITEMS = [
   { href: '/posts', label: 'Posts' },
   { href: '/projects', label: 'Projects' },
-  { href: '/other', label: 'Other' },
   { href: '/contact', label: 'Contact' },
-  { href: '/test1', label: 'Test 1' },
-  { href: '/test2', label: 'Test 2' },
+  { href: '/stats', label: 'Status' }
 ]
 
 export default function Header() {

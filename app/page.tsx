@@ -1,3 +1,4 @@
+import CurrentStruggle from '@/components/current-struggle'
 import Intro from '@/components/intro'
 import NewsletterForm from '@/components/newsletter-form'
 import RecentPosts from '@/components/recent-posts'
@@ -9,6 +10,7 @@ export default function Home() {
     <section className='pt-40 pb-24'>
       <div className='container mx-auto flex h-full max-w-3xl flex-col px-4'>
         <Intro />
+        <CurrentStruggle />
 
         <RecentPosts />
         <RecentProjects />

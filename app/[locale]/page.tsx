@@ -4,6 +4,7 @@ import NewsletterForm from '@/components/newsletter-form'
 import RecentPosts from '@/components/recent-posts'
 import RecentProjects from '@/components/recent-projects'
 import { homePageMetadata } from '@/lib/metadata/home'
+import { Metadata } from 'next'
 import React from 'react'
 
 export const metadata: Metadata = homePageMetadata

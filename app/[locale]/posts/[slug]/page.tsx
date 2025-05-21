@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 import { SUPPORTED_LOCALES, LOCALE_MAP } from '@/lib/metadata/locales'
+import { Metadata } from 'next'
 
 
 export async function generateStaticParams() {
@@ -43,24 +44,23 @@ export async function generateMetadata({ params }: { params: { locale:string, sl
 
   return {
     title: title,
-    summary: summary,
+    description: summary,
     openGraph: {
-      title: title,
-      summary: summary,
-      author: author,
+      title,
+      description: summary,
+      authors: author,
       url: `https://kurisu.noatorie.com/posts/${slug}`,
-      images: [{ url: image }],
-      publishedAt: publishedAt,
-      metadataBase: new URL('https://kurisu.noatorie.com'),
+      images: image,
+      publishedTime: publishedAt,
       type: 'article',
       locale: localeCode,
       siteName: 'Kurisu Noatorie',
-      alternates: {
-        canonical: `https://kurisu.noatorie.com/${locale}/posts/${slug}`,
-        languages: {
-          'en-US': 'https://kurisu.noatorie.com/en',
-          'ja-JP': 'https://kurisu.noatorie.com/ja',
-        },
+    },
+    alternates: {
+      canonical: `https://kurisu.noatorie.com/${locale}/posts/${slug}`,
+      languages: {
+        'en-US': `https://kurisu.noatorie.com/en/posts/${slug}`,
+        'ja-JP': `https://kurisu.noatorie.com/ja/posts/${slug}`,
       },
     },
   }

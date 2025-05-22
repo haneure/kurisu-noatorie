@@ -6,7 +6,7 @@ import kurisu from '@/public/images/placeholder.png'
 import { useTranslations } from 'next-intl'
 
 export default function Intro() {
-  const t = useTranslations('TabTitle')
+  const t = useTranslations('TabTitles')
 
   return (
     <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-12 md:flex-row md:items-center'>

@@ -16,10 +16,10 @@ const gothic = Zen_Maru_Gothic({
     variable: '--font-serif'
 })
 
-export const metadata: Metadata = {
-    title: 'Kurisu No Atorie',
-    description: 'Welcome to Kurisu No Atorie, a blog and portfolio featuring personal struggles, projects, and writings.',
-}
+// export const metadata: Metadata = {
+//     title: 'Kurisu No Atorie',
+//     description: 'Welcome to Kurisu No Atorie, a blog and portfolio featuring personal struggles, projects, and writings.',
+// }
 
 export default async function RootLayout({
   children

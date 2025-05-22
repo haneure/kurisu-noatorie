@@ -1,5 +1,6 @@
-import { SUPPORTED_LOCALES } from '@/lib/metadata/i18n'
-import { NextRequest, NextResponse } from 'next/server'
+import { SUPPORTED_LOCALES } from '@/lib/metadata/i18n';
+import { match } from '@formatjs/intl-localematcher'
+import Negotiator from 'negotiator'
 
 const PUBLIC_FILE = /\.(.*)$/
 
@@ -7,33 +8,10 @@ const PUBLIC_FILE = /\.(.*)$/
 const SUPPORTED_LOCALE_CODES = SUPPORTED_LOCALES.map(locale => locale.code);
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  // Skip next.js internals or public files
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    PUBLIC_FILE.test(pathname)
-  ) {
-    return NextResponse.next();
-  }
-
-  // If path already starts with a locale like /en or /ja
-  const hasLocale = SUPPORTED_LOCALE_CODES.some(
-    (code) => pathname === `/${code}` || pathname.startsWith(`/${code}/`)
-  );
-  if (hasLocale) {
-    return NextResponse.next();
-  }
-
-  // Try getting locale from cookie
-  const localeFromCookie = request.cookies.get('locale')?.value;
-  const matchedLocale = SUPPORTED_LOCALE_CODES.includes(localeFromCookie ?? '')
-    ? localeFromCookie
-    : 'en'; // fallback
-
-  const url = request.nextUrl.clone();
-  url.pathname = `/${matchedLocale}${pathname}`;
-
-  return NextResponse.redirect(url);
+  let headers = { 'accept-language': 'en-US,en;q=0.5' }
+  let languages = new Negotiator({ headers }).languages()
+  let locales = ['en-US', 'nl-NL', 'nl']
+  let defaultLocale = 'en-US'
+  
+  console.log(match(languages, locales, defaultLocale)) // -> 'en-US'
 }

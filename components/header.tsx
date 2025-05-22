@@ -50,7 +50,7 @@ export default function Header({ locale }: HeaderProps) {
     },
     doubleClick: () => {
       console.log('Double click')
-      router.push('/')
+      router.push(`/${locale}`)
     }
   })
 
@@ -89,7 +89,7 @@ export default function Header({ locale }: HeaderProps) {
 
             <DropdownMenuContent>
               <Link
-                href='/'
+                href={`/${locale}`}
                 className='font-serif text-2xl font-bold'
                 onClick={handleLinkClick}
               >
@@ -173,9 +173,6 @@ export default function Header({ locale }: HeaderProps) {
             </DropdownMenu>
           </div>
 
-          <div className='flex-none'>
-            <ThemeToggle />
-          </div>
           <div className='flex-none'>
             <ThemeToggle />
           </div>

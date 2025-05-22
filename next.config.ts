@@ -1,13 +1,10 @@
 import type { NextConfig } from "next";
+import createNextGlobeGenPlugin from "next-globe-gen/plugin";
+
+const withNextGlobeGen = createNextGlobeGenPlugin();
 
 const nextConfig: NextConfig = {
-  i18n: {
-    locales: ['en', 'ja'],
-    defaultLocale: 'en'
-  },
-  matcher: [
-    '/((?!_next|favicon.ico|images|fonts|api).*)',
-  ],
+  // Your other Next.js settings
 };
 
-export default nextConfig;
+export default withNextGlobeGen(nextConfig);

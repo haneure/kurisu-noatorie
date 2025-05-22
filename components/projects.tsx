@@ -5,12 +5,20 @@ import { PostMetadata } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import { Badge } from './ui/badge'
 
-export default function Projects({ projects }: { projects: PostMetadata[] }) {
+type ProjectsProps = {
+  locale: string
+  projects: PostMetadata[]
+}
+
+export default function Projects({ 
+  locale,
+  projects
+ }: ProjectsProps) {
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
       {projects.map(project => (
         <li key={project.slug} className='peer group'>
-          <Link href={`/projects/${project.slug}`} className='block'>
+          <Link href={`/${locale}/projects/${project.slug}`} className='block'>
             {/* 👇 Group only wraps the image now */}
             <div className='group bg-muted peer relative h-72 w-full overflow-hidden rounded-lg sm:h-60'>
               {project.image && (

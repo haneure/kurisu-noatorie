@@ -15,7 +15,6 @@ export default async function Home({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  console.log('Home', locale)
 
   return (
     <section className='pt-40 pb-24'>
@@ -24,7 +23,7 @@ export default async function Home({
         <CurrentStruggle />
 
         <RecentPosts locale={locale} />
-        <RecentProjects />
+        <RecentProjects locale={locale} />
 
         <NewsletterForm />
       </div>

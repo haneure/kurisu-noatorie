@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
-import { SUPPORTED_LOCALES, LOCALE_MAP } from '@/lib/metadata/locales'
+import { SUPPORTED_LOCALES, LOCALE_MAP, getLocaleAvailability } from '@/lib/metadata/i18n'
 import { Metadata } from 'next'
 
 
@@ -17,16 +17,16 @@ export async function generateStaticParams() {
   const params = []
   for (const locale of SUPPORTED_LOCALES) {
     for (const post of posts) {
-      params.push({ locale, slug: post.slug })
+      params.push({ locale: locale.code, slug: post.slug })
     }
   }
   return params
 }
 
 export async function generateMetadata({ params }: { params: { locale:string, slug: string } }): Promise<Metadata> {
-  const { locale, slug } = params
+  const { locale, slug } = await params
   
-  if (!SUPPORTED_LOCALES.includes(locale as typeof SUPPORTED_LOCALES[number])) {
+  if (! getLocaleAvailability(locale)) {
     notFound()
   }
   
@@ -73,7 +73,7 @@ export default async function Page({
 }) {
   const { locale, slug } = await params
 
-  if (!SUPPORTED_LOCALES.includes(locale as typeof SUPPORTED_LOCALES[number])) {
+  if (! getLocaleAvailability(locale)) {
     notFound()
   }
 

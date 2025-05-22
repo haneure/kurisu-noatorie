@@ -45,7 +45,6 @@ export async function getPosts(
 ): Promise<PostMetadata[]> {
   const rootDirectory = path.join(process.cwd(), 'content', dir)
   const files = fs.readdirSync(rootDirectory)
-  console.log('Files:', files)
 
   const posts = files
     .map(file => getPostMetadata(file, dir))

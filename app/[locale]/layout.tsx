@@ -22,14 +22,15 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  console.log('LocaleLayout', locale)
+  console.log('locale:', locale)
 
   return (
     <div>
       <Providers>
         <Header locale={locale} />
         <main className='grow'>
-          <CatChatProvider>{children}</CatChatProvider>
+          {/* <CatChatProvider>{children}</CatChatProvider> */}
+          {children}
         </main>
         <Footer />
       </Providers>

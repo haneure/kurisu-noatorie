@@ -13,7 +13,6 @@ type PostsProps  = {
 }
 
 export default function PostsWithSearch({ locale, posts }: PostsProps) {
-  console.log("Post with search", locale)
   const [query, setQuery] = useState('')
   const filteredPosts = posts.filter(post =>
     post.title?.toLowerCase().includes(query.toLowerCase())

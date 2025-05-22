@@ -7,7 +7,6 @@ type RecentPostsProps = {
 }
 
 export default async function RecentPosts({ locale }: RecentPostsProps) {
-  console.log("Recent Post", locale)
   const posts = await getPosts('posts', 4)
 
   return (

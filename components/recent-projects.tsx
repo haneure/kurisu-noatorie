@@ -3,17 +3,21 @@ import { getPosts } from '@/lib/posts'
 import { ArrowBigLeftDash } from 'lucide-react'
 import Link from 'next/link'
 
-export default async function RecentProjects() {
+type RecentProjectsProps = {
+  locale: string
+}
+
+export default async function RecentProjects({ locale }: RecentProjectsProps) {
   const projects = await getPosts('projects', 4)
 
   return (
     <section className='pb-12'>
       <div>
         <h2 className='title bg-badge mb-6'>Recent projects</h2>
-        <Projects projects={projects} />
+        <Projects locale={locale} projects={projects} />
 
         <Link
-          href='/projects'
+          href={`${locale}/projects`}
           className='text-muted-foreground hover:text-foreground inline-flex items-center gap-2 underline decoration-1 underline-offset-2 transition-colors'
         >
           <span className="flex items-center gap-1">

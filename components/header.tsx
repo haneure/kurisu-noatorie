@@ -176,6 +176,9 @@ export default function Header({ locale }: HeaderProps) {
           <div className='flex-none'>
             <ThemeToggle />
           </div>
+          <div className='flex-none'>
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
     </header>

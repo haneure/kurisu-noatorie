@@ -11,7 +11,6 @@ type PostsProps = {
 export default function Posts({
    locale, posts 
   }: PostsProps) {
-  console.log('Props passed to Posts:', { locale, posts })
   
   return (
     <ul className='flex flex-col gap-8'>

@@ -3,11 +3,17 @@ import React from 'react'
 // TODO:
 //  Change to actual image kurisu.png later
 import kurisu from '@/public/images/placeholder.png'
+import { useTranslations } from 'next-intl'
 
 export default function Intro() {
+  const t = useTranslations('TabTitle')
+
   return (
     <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-12 md:flex-row md:items-center'>
       <div className='mt-2 flex-1 md:mt-0'>
+        <h1 className='title mb-4 no-underline'>
+          {t("home")}
+        </h1>
         <h1 className='title mb-4 no-underline'>
           <span>Hey</span>, I&#39;m{' '}
           <span className='text-foreground'>Chris</span>.

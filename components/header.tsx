@@ -14,7 +14,7 @@ import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import {
 //   ContextMenu,
 //   ContextMenuContent,
@@ -27,6 +27,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from './ui/tooltip'
+import LocaleSwitcher from './locale-switcher'
 
 type HeaderProps = {
   locale: string
@@ -36,12 +37,30 @@ export default function Header({ locale }: HeaderProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
+  const [testLocale, setLocale] = useState<string>("");
+
   const NAV_ITEMS = [
     { href: `/${locale}/posts`, label: 'Posts' },
     { href: `/${locale}/projects`, label: 'Projects' },
     { href: `/${locale}/contact`, label: 'Contact' },
     { href: `/${locale}/stats`, label: 'Status' },
   ]
+
+  useEffect(() => {
+    const cookieLocale = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("MYNEXTAPP_LOCALE="))
+    ?.split("=")[1];
+
+    if(cookieLocale) {
+      setLocale(cookieLocale)
+    } else {
+      const browserLocale = navigator.language.slice(0, 2);
+      setLocale(browserLocale)
+      document.cookie = `MYNEXTAPP_LOCALE=${browserLocale}`;
+      router.refresh();
+    }
+  }, [router])
 
   const handleClick = useClickOrDoubleClick({
     singleClick: () => {
@@ -156,12 +175,12 @@ export default function Header({ locale }: HeaderProps) {
           </ul>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {/* Mobile Hamburger Menu */}
           <div className="sm:hidden flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none hover:scale-110 transition-transform duration-200 ease-in-out">
-                <Menu className="w-6 h-6 text-primary" />
+                <Menu className="w-9 h-6 text-primary" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {NAV_ITEMS.map((item) => (
@@ -173,6 +192,9 @@ export default function Header({ locale }: HeaderProps) {
             </DropdownMenu>
           </div>
 
+          <div className='flex-none'>
+            <LocaleSwitcher currentLocale={locale} />
+          </div>
           <div className='flex-none'>
             <ThemeToggle />
           </div>

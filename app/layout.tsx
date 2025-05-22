@@ -1,6 +1,8 @@
 import { cn } from '@/lib/utils'
 import { Zen_Kaku_Gothic_New, Zen_Maru_Gothic } from 'next/font/google'
 import './globals.css'
+import { getLocale, getMessages } from 'next-intl/server'
+import {NextIntlClientProvider} from 'next-intl';
 
 const kakuGothic = Zen_Kaku_Gothic_New({
     weight: '700',
@@ -19,13 +21,16 @@ export const metadata: Metadata = {
     description: 'Welcome to Kurisu No Atorie, a blog and portfolio featuring personal struggles, projects, and writings.',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
+    const messages = await getMessages();
+    const locale = await getLocale();
+
     return (
-        <html suppressHydrationWarning>
+        <html lang={locale} suppressHydrationWarning>
         <body         
             className={cn(
                 'flex min-h-screen flex-col font-sans antialiased',
@@ -33,7 +38,9 @@ export default function RootLayout({
                 gothic.variable
             )}
         >
-            {children}
+            <NextIntlClientProvider messages={messages}>
+                {children}
+            </NextIntlClientProvider>
         </body>
         </html>
     )

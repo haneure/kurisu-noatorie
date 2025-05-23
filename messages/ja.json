@@ -1,6 +1,11 @@
 {
-    "TabTitles": {
-        "home": "kurisu no atorie he youkoso"
+    "Metadata": {
+        "type": "article",
+        "siteName": "クリス の アトリエ"
+    },
+     "Intro": {
+        "home": "クリス の アトリエ へ ようこそ",
+        "name": "クリス"
     },
     "HomePage": {
         "list1": "Get started by editing",

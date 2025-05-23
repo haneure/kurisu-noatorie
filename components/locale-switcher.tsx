@@ -15,7 +15,12 @@ export default function LocaleSwitcher({ currentLocale }: { currentLocale: strin
     Cookies.set('MYNEXTAPP_LOCALE', newLocale, { expires: 365 }) // store for 1 year
 
     startTransition(() => {
-        router.push(`/${newLocale}`)
+      // Remove the current locale prefix from the pathname
+      const segments = pathname.split('/')
+      segments[1] = newLocale // Replace the locale
+      const newPath = segments.join('/')
+
+      router.push(newPath)
     })
   }
 
@@ -29,6 +34,7 @@ export default function LocaleSwitcher({ currentLocale }: { currentLocale: strin
           <DropdownMenuItem
             key={locale.code}
             onClick={() => handleLocaleChange(locale.code)}
+            disabled={isPending}
             className="flex items-center gap-2 cursor-pointer"
           >
             <span>{locale.flag}</span>

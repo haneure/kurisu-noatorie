@@ -8,8 +8,6 @@ export default async function PostsPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-
-  console.log("PostsPage", locale)
   const posts = await getPosts('posts')
 
   return (

@@ -9,12 +9,13 @@ import { getMessages } from 'next-intl/server'
 import React from 'react'
 
 export async function generateMetadata({
-  params: { locale }
+  params
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
   const messages = await getMessages({locale})
-  const title = messages.TabTitles?.home;
+  const title = messages.Metadata?.siteName;
   return {
     title
   }

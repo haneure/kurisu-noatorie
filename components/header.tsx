@@ -58,7 +58,9 @@ export default function Header({ locale }: HeaderProps) {
       const browserLocale = navigator.language.slice(0, 2);
       setLocale(browserLocale)
       document.cookie = `MYNEXTAPP_LOCALE=${browserLocale}`;
-      router.refresh();
+      
+      // No need to refresh here, will be handled in LocaleSwitcher
+      // router.refresh();
     }
   }, [router])
 

@@ -6,8 +6,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
-import { SUPPORTED_LOCALES, LOCALE_MAP, getLocaleAvailability } from '@/lib/metadata/i18n'
+import { SUPPORTED_LOCALES, LOCALE_MAP, getAllLocaleAvailability } from '@/lib/metadata/i18n'
 import { Metadata } from 'next'
+import { getMessages } from 'next-intl/server'
+import { useTranslations } from 'next-intl'
 
 
 export async function generateStaticParams() {
@@ -23,14 +25,15 @@ export async function generateStaticParams() {
   return params
 }
 
-export async function generateMetadata({ params }: { params: { locale:string, slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale:string, slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params
+  const t = useTranslations('Metadata')
   
-  if (! getLocaleAvailability(locale)) {
+  if (! getAllLocaleAvailability(locale)) {
     notFound()
   }
   
-  const post: PostData | null = await getPostBySlug(params.slug, 'posts')
+  const post: PostData | null = await getPostBySlug(slug, 'posts')
 
   if (!post) {
     notFound()
@@ -52,9 +55,9 @@ export async function generateMetadata({ params }: { params: { locale:string, sl
       url: `https://kurisu.noatorie.com/posts/${slug}`,
       images: image,
       publishedTime: publishedAt,
-      type: 'article',
+      type: t('type'),
       locale: localeCode,
-      siteName: 'Kurisu Noatorie',
+      siteName: t('siteName'),
     },
     alternates: {
       canonical: `https://kurisu.noatorie.com/${locale}/posts/${slug}`,
@@ -73,7 +76,7 @@ export default async function Page({
 }) {
   const { locale, slug } = await params
 
-  if (! getLocaleAvailability(locale)) {
+  if (! getAllLocaleAvailability(locale)) {
     notFound()
   }
 

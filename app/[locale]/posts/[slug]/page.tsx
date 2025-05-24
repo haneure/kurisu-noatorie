@@ -9,8 +9,9 @@ import React from 'react'
 import { SUPPORTED_LOCALES, LOCALE_MAP, getAllLocaleAvailability } from '@/lib/metadata/i18n'
 import { Metadata } from 'next'
 import { getMessages } from 'next-intl/server'
-import { useTranslations } from 'next-intl'
+import { createTranslator, useTranslations } from 'next-intl'
 
+const SITE_URL = process.env.SITE_URL || 'https://kurisu.noatorie.com' // Fallback if not defined
 
 export async function generateStaticParams() {
   const posts = await getPosts('posts')
@@ -27,13 +28,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale:string, slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params
-  const t = useTranslations('Metadata')
+  const messages = await getMessages({ locale: locale })
+  const t = await createTranslator({ locale: locale, messages })
   
   if (! getAllLocaleAvailability(locale)) {
     notFound()
   }
   
-  const post: PostData | null = await getPostBySlug(slug, 'posts')
+  const post: PostData | null = await getPostBySlug(slug, 'posts', locale)
 
   if (!post) {
     notFound()
@@ -52,18 +54,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale:st
       title,
       description: summary,
       authors: author,
-      url: `https://kurisu.noatorie.com/posts/${slug}`,
+      url: `${SITE_URL}/posts/${slug}`,
       images: image,
       publishedTime: publishedAt,
-      type: t('type'),
+      type: t('Metadata.type') as 'article',
       locale: localeCode,
-      siteName: t('siteName'),
+      siteName: t('Metadata.siteName'),
     },
     alternates: {
-      canonical: `https://kurisu.noatorie.com/${locale}/posts/${slug}`,
+      canonical: `${SITE_URL}/${locale}/posts/${slug}`,
       languages: {
-        'en-US': `https://kurisu.noatorie.com/en/posts/${slug}`,
-        'ja-JP': `https://kurisu.noatorie.com/ja/posts/${slug}`,
+        'en-US': `${SITE_URL}/en/posts/${slug}`,
+        'ja-JP': `${SITE_URL}/ja/posts/${slug}`,
       },
     },
   }
@@ -80,7 +82,7 @@ export default async function Page({
     notFound()
   }
 
-  const posts: PostData | null = await getPostBySlug(slug, 'posts')
+  const posts: PostData | null = await getPostBySlug(slug, 'posts', locale)
 
   if (!posts) {
     notFound()

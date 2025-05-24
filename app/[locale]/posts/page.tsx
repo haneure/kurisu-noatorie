@@ -8,7 +8,7 @@ export default async function PostsPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const posts = await getPosts('posts')
+  const posts = await getPosts('posts', undefined, locale)
 
   return (
     <section className='pt-40 pb-24'>

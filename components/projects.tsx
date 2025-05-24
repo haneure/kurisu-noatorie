@@ -25,6 +25,7 @@ export default function Projects({
                 <Image
                   src={project.image}
                   alt={project.title || ''}
+                  fill
                   className='rounded-lg object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105'
                 />
               )}

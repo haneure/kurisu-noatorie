@@ -5,7 +5,8 @@
     },
      "Intro": {
         "home": "クリス の アトリエ へ ようこそ",
-        "name": "クリス"
+        "name": "クリス",
+        "bio" : "test" 
     },
     "HomePage": {
         "list1": "Get started by editing",

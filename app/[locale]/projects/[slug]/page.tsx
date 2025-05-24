@@ -17,10 +17,10 @@ export async function generateStaticParams() {
 export default async function Project({
   params
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string, slug: string }>
 }) {
-  const { slug } = await params
-  const project = await getPostBySlug(slug, 'projects')
+  const { locale, slug } = await params
+  const project = await getPostBySlug(slug, 'projects', locale)
 
   if (!project) {
     notFound()

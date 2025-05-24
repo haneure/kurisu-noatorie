@@ -7,7 +7,7 @@ type RecentPostsProps = {
 }
 
 export default async function RecentPosts({ locale }: RecentPostsProps) {
-  const posts = await getPosts('posts', 4)
+  const posts = await getPosts('posts', 4, locale)
 
   return (
     <section className='pb-12'>

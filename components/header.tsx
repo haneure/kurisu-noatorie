@@ -21,13 +21,13 @@ import React, { useEffect, useState } from 'react'
 //   ContextMenuItem,P
 //   ContextMenuTrigger
 // } from './ui/context-menu'
+import LocaleSwitcher from './locale-switcher'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from './ui/tooltip'
-import LocaleSwitcher from './locale-switcher'
 
 type HeaderProps = {
   locale: string
@@ -129,12 +129,12 @@ export default function Header({ locale }: HeaderProps) {
               <Link href='https://haneure-old.vercel.app/'>
                 <DropdownMenuItem className='cursor-pointer'>
                   <Image
-                    src='/cat.svg'
+                    src='/images/cat.svg'
                     alt='cat'
                     width={24}
                     height={24}
                   ></Image>
-                  {/* <img src='/cat.svg' alt='cat' className='h-4 w-4' /> */}
+                  {/* <img src='/images/cat.svg' alt='cat' className='h-4 w-4' /> */}
                   Old portfolio
                 </DropdownMenuItem>
               </Link>

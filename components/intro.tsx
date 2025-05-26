@@ -12,13 +12,13 @@ export default function Intro() {
 
   // const t = useTranslations('Intro')
   return (
-    <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-12 md:flex-row md:items-center'>
+    <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-6 md:flex-row md:items-center'>
       <div className='mt-2 flex-1 md:mt-0'>
         <h1 className='title mb-4 no-underline'>
           {t('home')}
         </h1>
         <h1 className='title mb-4 no-underline'>
-          <span>Hey</span>, I&#39;m{' '}
+          <span>{t('intro')}</span>
           <span className='text-foreground'>{t('name')}</span>.
         </h1>
         <p>

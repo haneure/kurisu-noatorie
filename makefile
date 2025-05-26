@@ -6,7 +6,7 @@ APP_NAME=kurisu-noatorie
 
 dev:
 	@echo "Starting development server with PM2..."
-	pm2 start pnpm --name $(APP_NAME)-dev --watch -- run dev
+	pm2 start pnpm --name $(APP_NAME)-dev -- run dev
 
 build:
 	@echo "Building the application..."

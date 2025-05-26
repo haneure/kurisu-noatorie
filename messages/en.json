@@ -5,6 +5,7 @@
     },
     "Intro": {
         "home": "Welcome to Chris's Atelier",
+        "intro": "Hey, I'm ",
         "name": "Chris",
         "bio": "I'm a software engineer based in Tangerang, Indonesia. I'm always trying to learn new things because learning new things never bores me! Recently, I just start creating my own homelab. I also start making Indie Games using Godot.",
         "currentStruggle": "Current Struggle"

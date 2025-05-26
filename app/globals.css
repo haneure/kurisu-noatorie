@@ -143,6 +143,11 @@
     @apply decoration-border/75 text-3xl font-bold underline decoration-2 underline-offset-8;
     font-family: var(--font-serif);
   }
+
+  .subtitle {
+    @apply decoration-border/75 text-xl font-bold underline decoration-2 underline-offset-8;
+    font-family: var(--font-serif);
+  }
 }
 
 @layer typography {

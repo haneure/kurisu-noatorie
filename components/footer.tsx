@@ -97,8 +97,10 @@ export default function Footer() {
           </div>
           <div className='mt-8 md:order-1 md:mt-0'>
             <p className='text-muted-foreground text-center text-xs leading-5'>
-              &copy; {new Date().getFullYear()} Kurisu no Atorie. All rights
-              reserved.
+              &copy; {new Date().getFullYear()} Kurisu no Atorie. All rights reserved. 
+              <span className="spinning-backslash">\</span>Always in
+                Development...{" "}
+                <span className="spinning-backslash">\</span>
             </p>
           </div>
         </div>

@@ -8,7 +8,7 @@ type RecentProjectsProps = {
 }
 
 export default async function RecentProjects({ locale }: RecentProjectsProps) {
-  const projects = await getPosts('projects', 4)
+  const projects = await getPosts('projects', 4, locale)
 
   return (
     <section className='pb-12'>

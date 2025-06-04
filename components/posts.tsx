@@ -36,7 +36,7 @@ export default function Posts({
               <div className=''>
                 {post.publishedAt && (
                   <p className='text-sm font-light'>
-                    {formatDate(post.publishedAt)}
+                    {formatDate(post.publishedAt, locale === 'ja' ? 'ja-JP' : 'en-US')}
                   </p>
                 )}
                 {post.author && (

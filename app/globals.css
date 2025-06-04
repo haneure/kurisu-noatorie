@@ -154,7 +154,7 @@
   .prose h1,
   .prose h2,
   .prose h3 {
-    @apply mt-6 text-lg font-bold; /* Add margin to headings */
+    @apply mt-6 mb-1 text-lg font-bold; /* Add margin to headings */
   }
 
   .prose h1 {
@@ -193,4 +193,24 @@
   .prose ol {
     @apply list-decimal pl-6;
   }
+
+  .prose p {
+    @apply leading-relaxed; /* bigger line height for Japanese */
+  }
+}
+
+@keyframes spin-backslash {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.spinning-backslash {
+  display: inline-block;
+  animation: spin-backslash 2s linear infinite;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }

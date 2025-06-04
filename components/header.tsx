@@ -13,7 +13,7 @@ import {
 import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 // import {
 //   ContextMenu,
@@ -34,9 +34,9 @@ type HeaderProps = {
 }
 
 export default function Header({ locale }: HeaderProps) {
+  const pathname = usePathname();
   const router = useRouter()
   const [open, setOpen] = useState(false)
-
   const [testLocale, setLocale] = useState<string>("");
 
   const NAV_ITEMS = [
@@ -126,6 +126,19 @@ export default function Header({ locale }: HeaderProps) {
                 </TooltipProvider> */}
               </Link>
               <DropdownMenuSeparator />
+              <Link href='https://noatorie.com/'>
+                <DropdownMenuItem className='cursor-pointer'>
+                  <Image
+                    src='/images/cat.svg'
+                    alt='cat'
+                    width={24}
+                    height={24}
+                  ></Image>
+                  {/* <img src='/images/cat.svg' alt='cat' className='h-4 w-4' /> */}
+                  Art Portfolio
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
               <Link href='https://haneure-old.vercel.app/'>
                 <DropdownMenuItem className='cursor-pointer'>
                   <Image
@@ -135,7 +148,7 @@ export default function Header({ locale }: HeaderProps) {
                     height={24}
                   ></Image>
                   {/* <img src='/images/cat.svg' alt='cat' className='h-4 w-4' /> */}
-                  Old portfolio
+                  Old Portfolio
                 </DropdownMenuItem>
               </Link>
             </DropdownMenuContent>
@@ -167,11 +180,17 @@ export default function Header({ locale }: HeaderProps) {
         <div className="hidden sm:flex flex-1 justify-center">
           <ul className="hidden sm:flex text-primary items-center justify-center gap-6 font-mono">
             {NAV_ITEMS.map((item) => (
-              <li
-                key={item.href}
-                className="hover:text-foreground transition-colors hover:underline hover:underline-offset-[4px]"
-              >
-                <Link href={item.href}>{item.label}</Link>
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`transition-colors hover:underline hover:underline-offset-[4px] ${
+                    pathname === item.href
+                      ? 'underline underline-offset-[4px] text-foreground'
+                      : 'text-primary'
+                  }`}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>

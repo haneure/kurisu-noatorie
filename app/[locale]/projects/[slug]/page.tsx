@@ -54,7 +54,7 @@ export default async function Project({
         <header>
           <h1 className='title'>{title}</h1>
           <p className='text-muted-foreground mt-3 text-xs'>
-            {author} / {formatDate(publishedAt ?? '')}
+            {author} / {formatDate(publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
           </p>
         </header>
 

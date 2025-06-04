@@ -1,15 +1,15 @@
 import MDXContent from '@/components/mdx-content'
+import { getAllLocaleAvailability, LOCALE_MAP, SUPPORTED_LOCALES, useSafeTranslations } from '@/lib/metadata/i18n'
 import { getPostBySlug, getPosts, PostData } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
+import { Metadata } from 'next'
+import { createTranslator, useTranslations } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
-import { SUPPORTED_LOCALES, LOCALE_MAP, getAllLocaleAvailability } from '@/lib/metadata/i18n'
-import { Metadata } from 'next'
-import { getMessages } from 'next-intl/server'
-import { createTranslator, useTranslations } from 'next-intl'
 
 const SITE_URL = process.env.SITE_URL || 'https://kurisu.noatorie.com' // Fallback if not defined
 
@@ -77,6 +77,8 @@ export default async function Page({
   params: Promise<{ locale: string, slug: string }>
 }) {
   const { locale, slug } = await params
+  const messages = await getMessages({ locale: locale })
+  const t = await createTranslator({ locale: locale, messages })
 
   if (! getAllLocaleAvailability(locale)) {
     notFound()
@@ -99,7 +101,7 @@ export default async function Page({
           className='text-muted-foreground hover:text-foreground mb-8 inline-flex items-center gap-2 text-sm font-light transition-colors'
         >
           <ArrowLeftIcon className='h-5 w-5' />
-          <span>Back to posts</span>
+          <span>{t('Post.back')}</span>
         </Link>
 
         {image && (
@@ -116,7 +118,7 @@ export default async function Page({
         <header>
           <h1 className='title'>{title}</h1>
           <p className='text-muted-foreground mt-3 text-xs'>
-            {author} / {formatDate(publishedAt ?? '')}
+            {author} / {formatDate(publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
           </p>
         </header>
 

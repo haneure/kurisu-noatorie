@@ -8,18 +8,18 @@ import { useSafeTranslations } from '@/lib/metadata/i18n'
 import { useTranslations } from 'next-intl'
 
 export default function Intro() {
-  const t = useSafeTranslations('Intro')
+  const {text} = useSafeTranslations('Intro')
 
   // const t = useTranslations('Intro')
   return (
     <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-6 md:flex-row md:items-center'>
       <div className='mt-2 flex-1 md:mt-0'>
         <h1 className='title mb-4 no-underline'>
-          {t('home')}
+          {text('home')}
         </h1>
         <h1 className='title mb-4 no-underline'>
-          <span>{t('intro')}</span>
-          <span className='text-foreground'>{t('name')}</span>.
+          <span>{text('intro')}</span>
+          <span className='text-foreground'>{text('name')}</span>
         </h1>
         <p>
           {' '}
@@ -28,7 +28,7 @@ export default function Intro() {
           always trying to learn new things because learning new things never
           bores me! Recently, I just start creating my own homelab. I also
           start making Indie Games using Godot. */}
-          {t('bio')}
+          {text('bio')}
         </p>
       </div>
       <div className='relative'>

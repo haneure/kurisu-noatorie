@@ -21,34 +21,49 @@ export function getLocaleAvailability(locale: string): string {
 }
 
 export function useSafeTranslations(namespace?: string) {
-  const t = useNextTranslations(namespace)
-    const locale = useLocale()
+  const t = useNextTranslations(namespace);
+  const locale = useLocale();
 
-  return (key: string) => {
+  const text = (key: string): string => {
     try {
-      const value = t(key)
+      const value = t(key);
+      const isMissing = namespace && value === `${namespace}.${key}`;
 
-      const isMissing = namespace && value === `${namespace}.${key}`
-
-      if (isMissing) {
-        if (process.env.NODE_ENV === 'development') {
-          console.warn(
-            `[i18n] Missing translation for key "${namespace}.${key}" in locale "${locale}". Falling back to English.`
-          )
-        }
-
-        return defaultEn?.[namespace]?.[key] || key
+      if (isMissing && process.env.NODE_ENV === 'development') {
+        console.warn(
+          `[i18n] Missing translation for key "${namespace}.${key}" in locale "${locale}". Falling back to English.`
+        );
       }
 
-      return value
+      return isMissing ? defaultEn?.[namespace]?.[key] || key : value;
     } catch {
       if (process.env.NODE_ENV === 'development') {
         console.warn(
           `[i18n] Error accessing translation for key "${namespace}.${key}" in locale "${locale}". Falling back to English.`
-        )
+        );
       }
 
-      return defaultEn?.[namespace || '']?.[key] || key
+      return defaultEn?.[namespace || '']?.[key] || key;
     }
-  }
+  };
+
+  const rich = (
+    key: string,
+    values: Record<string, (chunks: React.ReactNode) => React.ReactNode>
+  ): React.ReactNode => {
+    try {
+      return t.rich(key, values);
+    } catch {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(
+          `[i18n] Error accessing rich translation for key "${namespace}.${key}" in locale "${locale}". Falling back to plain text.`
+        );
+      }
+
+      const fallback = defaultEn?.[namespace || '']?.[key] || key;
+      return fallback;
+    }
+  };
+
+  return { text, rich };
 }

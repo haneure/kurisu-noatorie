@@ -112,7 +112,7 @@ export async function getPosts(
   return limit ? allPosts.slice(0, limit) : allPosts
 }
 
-export async function getPostMetadata(filepath: string, dir: string): PostMetadata {
+export async function getPostMetadata(filepath: string, dir: string): Promise<PostMetadata> {
   const rootDirectory = path.join(process.cwd(), 'content', dir)
   const slug = filepath.replace(/\.([a-z]{2})\.mdx$/, '') // removes `.en.mdx`, `.ja.mdx`, etc.
   console.log("getPostMetadata", slug)

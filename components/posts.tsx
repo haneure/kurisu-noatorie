@@ -11,7 +11,7 @@ type PostsProps = {
 export default function Posts({
    locale, posts 
   }: PostsProps) {
-  
+
   return (
     <ul className='flex flex-col gap-8'>
       {posts.map(post => (

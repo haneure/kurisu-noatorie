@@ -1,6 +1,7 @@
 import { getPosts } from '@/lib/posts'
 import Link from 'next/link'
 import Posts from './posts'
+import { getTranslations } from 'next-intl/server'
 
 type RecentPostsProps = {
   locale: string
@@ -8,11 +9,12 @@ type RecentPostsProps = {
 
 export default async function RecentPosts({ locale }: RecentPostsProps) {
   const posts = await getPosts('posts', 4, locale)
+  const t = await getTranslations('RecentPosts');
 
   return (
     <section className='pb-12'>
       <div>
-        <h2 className='title mb-6'>Recent posts</h2>
+        <h2 className='title mb-6'>{t('recentPosts')}</h2>
         <Posts locale={locale} posts={posts} />
 
         <Link

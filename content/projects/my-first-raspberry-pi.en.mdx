@@ -1,0 +1,68 @@
+---
+  title: My First Raspberry Pi 5
+  summary: My first experience with the Raspberry Pi 5.
+  image: /images/projects/Valheim.png
+  author: 'Christian Halim'
+  publishedAt: '2025-06-10'
+---
+
+I've always dreamed of owning a Raspberry Pi to experiment with all sorts of IoT projects. Now, that dream has finally come true—it's right here in my hands! The possibilities feel endless, and I'm excited to share my first impressions and setup journey.
+
+## Specification
+
+- **Processor**: Broadcom BCM2712 quad-core Arm Cortex A76 processor @ 2.4GHz
+- **RAM**: 8GB
+- **Storage**: 128GB Micro SD
+
+## Essential Features
+
+- **Homelab**: I will use this as my Homelab. [TBA]
+- **Hosting my website**: I will use this to run my website.
+- **Running bots and services**: I also use this device to run my scraping bots. For example, I have a bot that tracks **supertrends** in the **Indonesian Exchange Market** and sends updates directly to my Telegram daily at 15:30 PM.
+  <ImageWithLabel
+      src="/images/posts/introduction-to-yomitan/yomitan-in-action.jpg"
+      width="400"
+      height="200"
+      alt="Yomitan in Action"
+      label="Telegram Bot."
+  />
+  Additionally, I also use my Pi to serve **API endpoints** —primarily for my Telegram Bots and my sensors. From the API, I can do some commands from my programs such as for retrieving a **single stock data from the market** and send it from my Telegram Bot,
+  or for retrieving **real-time** room temperature and humidity data from my sensors.
+
+### Accessories
+
+Since I plan to keep this device running 24/7, a reliable cooling solution is essential. The Raspberry Pi Active Cooler is a must-have to ensure stable performance and longevity.
+
+<ImageWithLabel
+    src="/images/posts/introduction-to-yomitan/yomitan-in-action.jpg"
+    width="400"
+    height="200"
+    alt="Yomitan in Action"
+    label="My RPI 5."
+/>
+
+I'm also venturing into smart home automation. Currently, I have a DHT-22 Temperature and Humidity Sensor Module, which displays my room's climate data in real time.
+>Fun fact: I recently learned that humidity above 70% is considered unhealthy! This explains why I often wake up with a sore throat—my room's humidity regularly exceeds that threshold. <ImageOnly src="/images/posts/introduction-to-yomitan/yomitan-icon128.png" width="20" height="20" alt="Yomitan Icon" rounded="none" />
+
+
+## Tech stack
+
+For my homelab setup, the Raspberry Pi 5 serves as my main server. I run a combination of Docker containers for various services, including home automation, media streaming, and personal projects. Its flexibility and low power consumption make it an ideal choice for continuous operation.
+
+However, I also use a virtual private server (VPS) because my ISP blocks port 80 from external access. This restriction prevents me from running certificate challenges, even with port forwarding and proxying in place **—sad**.
+
+<ImageWithLabel
+    src="/images/posts/introduction-to-yomitan/yomitan-in-action.jpg"
+    width="400"
+    height="200"
+    alt="Yomitan in Action"
+    label="Behold, the truth."
+/>
+
+To solve this, the VPS acts as my **load balancer**. It listens on port 80 and routes incoming requests to the appropriate endpoints on my home server, which are organized by port and accessed via my router's public IP.
+
+Since the VPS has its own public IP, I can easily enable HTTPS using Certbot. As a result, all my other sites are accessible securely over HTTPS.
+
+I'm excited to keep expanding my setup with more sensors and to explore further automation using Home Assistant. Stay tuned for more updates as I dive deeper into the world of Raspberry Pi and smart home technology!
+
+<GiscusMdx locale="en" slug="projects/my-first-rpi5" />

@@ -11,8 +11,7 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpm run build
-RUN pnpm run export
+RUN pnpm run build && pnpm run export
 RUN test -d /app/out && echo "Export successful"
 
 # Step 2: Serve with NGINX

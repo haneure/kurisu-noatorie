@@ -14,7 +14,7 @@ COPY . .
 RUN pnpm run build && pnpm run export && test -d /app/out && echo "Export successful"
 
 # Step 2: Serve with NGINX
-FROM nginx:latest
+FROM nginx:1.25.0
 
 # Remove default nginx static files
 RUN rm -rf /usr/share/nginx/html/*

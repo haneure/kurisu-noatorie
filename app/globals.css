@@ -143,13 +143,18 @@
     @apply decoration-border/75 text-3xl font-bold underline decoration-2 underline-offset-8;
     font-family: var(--font-serif);
   }
+
+  .subtitle {
+    @apply decoration-border/75 text-xl font-bold underline decoration-2 underline-offset-8;
+    font-family: var(--font-serif);
+  }
 }
 
 @layer typography {
   .prose h1,
   .prose h2,
   .prose h3 {
-    @apply mt-6 text-lg font-bold; /* Add margin to headings */
+    @apply mt-6 mb-1 text-lg font-bold; /* Add margin to headings */
   }
 
   .prose h1 {
@@ -188,4 +193,32 @@
   .prose ol {
     @apply list-decimal pl-6;
   }
+
+  .prose p {
+    @apply leading-relaxed; /* bigger line height for Japanese */
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-muted pl-4 italic text-muted-foreground my-4;
+  }
+
+  .prose blockquote p {
+    @apply m-0;
+  }
+}
+
+@keyframes spin-backslash {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.spinning-backslash {
+  display: inline-block;
+  animation: spin-backslash 2s linear infinite;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }

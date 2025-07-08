@@ -3,7 +3,7 @@ import React, { JSX } from 'react'
 import { highlight } from 'sugar-high'
 
 import Counter from './mdx-components/counter'
-import GiscusMdx from './mdx-components/giscus'
+import GiscusMdx from './mdx-components/giscus-mdx'
 import ImageWithLabel from './mdx-components/image-with-label'
 import Link from 'next/link'
 import ImageOnly from './mdx-components/image-only'

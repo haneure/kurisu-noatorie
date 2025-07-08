@@ -1,11 +1,21 @@
 "use client";
 
+import { usePolling } from "@/app/hooks/usePooling";
+import ProgressBar from "@/components/animations/progress-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 
+interface ProgressBarProps {
+  duration: number;
+}
+
 export default function Home() {
   const [systemInfo, setSystemInfo] = useState<any>(null);
+  const [tempAndHumid, setTempAndHumidData] = useState<{ temperature_c: number; temperature_f: number; humidity: number } | null>(null);
+  const [error, setError] = useState('');
+  const [fetchTrigger, setFetchTrigger] = useState(0); // Used to reset ProgressBar
+
 
   const fetchData = async () => {
     const res = await fetch("/api/system");
@@ -13,9 +23,37 @@ export default function Home() {
     setSystemInfo(data);
   };
 
+  const fetchTempAndHumid = async () => {
+    try {
+        const response = await fetch('https://temp-and-humid.noatorie.com/api/temp-and-humid-sensor', {
+          headers: {
+            'Authorization': 'Bearer your_secret_api_key',
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            setError('Unauthorized access. Please check your API key.');
+          } else {
+            setError('Failed to fetch data.');
+          }
+        } else {
+        const result = await response.json();
+        setTempAndHumidData(result);
+        }
+      } catch (err) {
+        setError('An error occurred while fetching data.');
+      }
+  }
+
   useEffect(() => {
-    fetchData(); // Initial fetch
-    const interval = setInterval(fetchData, 5000); // Every 5s
+    fetchData();
+    fetchTempAndHumid();
+    const interval = setInterval(() => {
+      fetchData();
+      fetchTempAndHumid();
+      setFetchTrigger(prev => prev + 1); // Trigger ProgressBar reset
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -42,6 +80,20 @@ export default function Home() {
                 <span className="text-foreground font-medium">{value}</span>
               </div>
             ))}
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold text-foreground">Room Information</h3>
+            <div className="space-y-1">
+	      <div className="flex justify-between text-sm text-muted-foreground">
+	        <span className="text-muted-foreground">Room Temperature:</span>
+	        <span className="text-foreground font-medium">{tempAndHumid?.temperature_c}°C</span>
+	      </div>
+	      <div className="flex justify-between text-sm text-muted-foreground">
+	        <span className="text-muted-foreground">Room Humidity:</span>
+	        <span className="text-foreground font-medium">{tempAndHumid?.humidity}%</span>
+	      </div>
+	    </div> 
           </div>
 
           <div className="space-y-2">
@@ -72,6 +124,8 @@ export default function Home() {
             />
           </div>
         </CardContent>
+        {/* ProgressBar placed at the bottom of the card */}
+        <ProgressBar key={fetchTrigger} duration={5000} />
       </Card>
     </main>
   );

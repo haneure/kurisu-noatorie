@@ -13,14 +13,15 @@ import {
 import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 // import {
 //   ContextMenu,
 //   ContextMenuContent,
 //   ContextMenuItem,P
 //   ContextMenuTrigger
 // } from './ui/context-menu'
+import LocaleSwitcher from './locale-switcher'
 import {
   Tooltip,
   TooltipContent,
@@ -33,8 +34,10 @@ type HeaderProps = {
 }
 
 export default function Header({ locale }: HeaderProps) {
+  const pathname = usePathname();
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const [testLocale, setLocale] = useState<string>("");
 
   const NAV_ITEMS = [
     { href: `/${locale}/posts`, label: 'Posts' },
@@ -42,6 +45,24 @@ export default function Header({ locale }: HeaderProps) {
     { href: `/${locale}/contact`, label: 'Contact' },
     { href: `/${locale}/stats`, label: 'Status' },
   ]
+
+  useEffect(() => {
+    const cookieLocale = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("MYNEXTAPP_LOCALE="))
+    ?.split("=")[1];
+
+    if(cookieLocale) {
+      setLocale(cookieLocale)
+    } else {
+      const browserLocale = navigator.language.slice(0, 2);
+      setLocale(browserLocale)
+      document.cookie = `MYNEXTAPP_LOCALE=${browserLocale}`;
+      
+      // No need to refresh here, will be handled in LocaleSwitcher
+      // router.refresh();
+    }
+  }, [router])
 
   const handleClick = useClickOrDoubleClick({
     singleClick: () => {
@@ -105,16 +126,29 @@ export default function Header({ locale }: HeaderProps) {
                 </TooltipProvider> */}
               </Link>
               <DropdownMenuSeparator />
-              <Link href='https://haneure-old.vercel.app/'>
+              <Link href='https://noatorie.com/'>
                 <DropdownMenuItem className='cursor-pointer'>
                   <Image
-                    src='/cat.svg'
+                    src='/images/cat.svg'
                     alt='cat'
                     width={24}
                     height={24}
                   ></Image>
-                  {/* <img src='/cat.svg' alt='cat' className='h-4 w-4' /> */}
-                  Old portfolio
+                  {/* <img src='/images/cat.svg' alt='cat' className='h-4 w-4' /> */}
+                  Art Portfolio
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <Link href='https://haneure-old.vercel.app/'>
+                <DropdownMenuItem className='cursor-pointer'>
+                  <Image
+                    src='/images/cat.svg'
+                    alt='cat'
+                    width={24}
+                    height={24}
+                  ></Image>
+                  {/* <img src='/images/cat.svg' alt='cat' className='h-4 w-4' /> */}
+                  Old Portfolio
                 </DropdownMenuItem>
               </Link>
             </DropdownMenuContent>
@@ -146,22 +180,28 @@ export default function Header({ locale }: HeaderProps) {
         <div className="hidden sm:flex flex-1 justify-center">
           <ul className="hidden sm:flex text-primary items-center justify-center gap-6 font-mono">
             {NAV_ITEMS.map((item) => (
-              <li
-                key={item.href}
-                className="hover:text-foreground transition-colors hover:underline hover:underline-offset-[4px]"
-              >
-                <Link href={item.href}>{item.label}</Link>
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`transition-colors hover:underline hover:underline-offset-[4px] ${
+                    pathname === item.href
+                      ? 'underline underline-offset-[4px] text-foreground'
+                      : 'text-primary'
+                  }`}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {/* Mobile Hamburger Menu */}
           <div className="sm:hidden flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none hover:scale-110 transition-transform duration-200 ease-in-out">
-                <Menu className="w-6 h-6 text-primary" />
+                <Menu className="w-9 h-6 text-primary" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {NAV_ITEMS.map((item) => (
@@ -173,6 +213,9 @@ export default function Header({ locale }: HeaderProps) {
             </DropdownMenu>
           </div>
 
+          <div className='flex-none'>
+            <LocaleSwitcher currentLocale={locale} />
+          </div>
           <div className='flex-none'>
             <ThemeToggle />
           </div>

@@ -11,7 +11,7 @@ type PostsProps = {
 export default function Posts({
    locale, posts 
   }: PostsProps) {
-  
+
   return (
     <ul className='flex flex-col gap-8'>
       {posts.map(post => (
@@ -36,7 +36,7 @@ export default function Posts({
               <div className=''>
                 {post.publishedAt && (
                   <p className='text-sm font-light'>
-                    {formatDate(post.publishedAt)}
+                    {formatDate(post.publishedAt, locale === 'ja' ? 'ja-JP' : 'en-US')}
                   </p>
                 )}
                 {post.author && (

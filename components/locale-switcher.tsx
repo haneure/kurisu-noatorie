@@ -12,23 +12,29 @@ export default function LocaleSwitcher({ currentLocale }: { currentLocale: strin
   const [isPending, startTransition] = useTransition()
 
   const handleLocaleChange = (newLocale: string) => {
-    Cookies.set('NEXT_LOCALE', newLocale, { expires: 365 }) // store for 1 year
+    Cookies.set('MYNEXTAPP_LOCALE', newLocale, { expires: 365 }) // store for 1 year
 
     startTransition(() => {
-        router.push(`/${newLocale}`)
+      // Remove the current locale prefix from the pathname
+      const segments = pathname.split('/')
+      segments[1] = newLocale // Replace the locale
+      const newPath = segments.join('/')
+
+      router.push(newPath)
     })
   }
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="px-2 py-1 text-sm border rounded-md hover:bg-muted transition">
-        🌐 {SUPPORTED_LOCALES.find(l => l.code === currentLocale)?.flag}
+      <DropdownMenuTrigger className="px-2 py-1 rounded-md hover:bg-muted hover:scale-120 transition-transform duration-200 ease-in-out">
+        {SUPPORTED_LOCALES.find(l => l.code === currentLocale)?.flag}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {SUPPORTED_LOCALES.map(locale => (
           <DropdownMenuItem
             key={locale.code}
             onClick={() => handleLocaleChange(locale.code)}
+            disabled={isPending}
             className="flex items-center gap-2 cursor-pointer"
           >
             <span>{locale.flag}</span>

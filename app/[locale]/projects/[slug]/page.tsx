@@ -17,10 +17,10 @@ export async function generateStaticParams() {
 export default async function Project({
   params
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string, slug: string }>
 }) {
-  const { slug } = await params
-  const project = await getPostBySlug(slug, 'projects')
+  const { locale, slug } = await params
+  const project = await getPostBySlug(slug, 'projects', locale)
 
   if (!project) {
     notFound()
@@ -54,7 +54,7 @@ export default async function Project({
         <header>
           <h1 className='title'>{title}</h1>
           <p className='text-muted-foreground mt-3 text-xs'>
-            {author} / {formatDate(publishedAt ?? '')}
+            {author} / {formatDate(publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
           </p>
         </header>
 

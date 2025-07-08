@@ -1,0 +1,88 @@
+---
+  title: My First Raspberry Pi 5
+  summary: My first experience with the Raspberry Pi 5.
+  image: /images/projects/my-first-raspberry-pi/rpi5.jpg
+  author: 'Christian Halim'
+  publishedAt: '2025-06-10'
+---
+
+I've always dreamed of owning a Raspberry Pi to experiment with all sorts of IoT projects. Now, that dream has finally come true—it's right here in my hands! The possibilities feel endless, and I'm excited to share my first impressions and setup journey.
+
+## Specification
+
+- **Processor**: Broadcom BCM2712 quad-core Arm Cortex A76 processor @ 2.4GHz
+- **RAM**: 8GB
+- **Storage**: 128GB Micro SD
+
+## Essential Features
+
+- **Homelab**: I will use this as my Homelab.
+- **Hosting my website**: I will use this to run my website.
+- **Running bots and services**: I also use this device to run bots. For example, I have a bot that scrapes stocks markets, tracks **supertrends** in the **Indonesian Exchange Market** and sends updates directly to my Telegram daily at 15:30 PM.
+  <ImageWithLabel
+      src="/images/projects/my-first-raspberry-pi/bot_saham.png"
+      width="400"
+      height="200"
+      alt="Yomitan in Action"
+      label="Telegram Bot."
+  />
+  Additionally, I also use my Pi to serve **API endpoints** —primarily for my Telegram Bots and my sensors. From the API, I can do some commands from my programs such as for retrieving a **single stock data from the market** and send it from my Telegram Bot,
+  or for retrieving **real-time** room temperature and humidity data from my sensors.
+
+### Accessories
+
+Since I plan to keep this device running 24/7, a reliable cooling solution is essential. The Raspberry Pi Active Cooler is a must-have to ensure stable performance and longevity.
+
+<ImageWithLabel
+    src="/images/projects/my-first-raspberry-pi/dht-22.jpg"
+    width="300"
+    height="200"
+    alt="DHT-22 Temperature and Humidity Sensor Module"
+    label="DHT-22 Temperature and Humidity Sensor Module"
+/>
+
+I'm also venturing into smart home automation. Currently, I have a DHT-22 Temperature and Humidity Sensor Module, which displays my room's climate data in real time.
+>Fun fact: I recently learned that humidity above 70% is considered unhealthy! This explains why I often wake up with a sore throat—my room's humidity regularly exceeds that threshold.
+
+
+## Tech stack
+
+For my homelab setup, the Raspberry Pi 5 will be my main server. I plan to run a combination of Docker containers for various services, including home automation, media streaming, and personal projects. Its flexibility and low power consumption make it an ideal choice for continuous operation. And of course, I will use **kubernetes** to orchestrate my containers, ensuring efficient resource management and scalability.
+
+<ImageWithLabel
+    src="/images/projects/my-first-raspberry-pi/architecture.png"
+    width="1280"
+    height="200"
+    alt="Architecture Diagram"
+    label="My current homelab architecture."
+/>
+
+My current architecture consists of **Metallb**, it allows me to create a single entry point for all my services, making it easier to manage and access them. I also use **Traefik** as my reverse proxy, which simplifies routing and SSL management for my services (even though right now everything is still self-signed). For local DNS, I use **pi-hole**, this setup allows me to access my services using friendly URLs instead of IP addresses, enhancing usability and organization. For exposing my services, Right now I'm experimenting with **cloudflared** to create secure tunnels, allowing me to access my services remotely without exposing them directly to the internet. I connect it with my Domain **noatorie.com** so I can access my services using friendly URLs like **https://home.noatorie.com** or **https://sensor.noatorie.com**.
+
+<ImageWithLabel
+    src="/images/projects/my-first-raspberry-pi/portainer.png"
+    width="1280"
+    height="200"
+    alt="Portainer in Action"
+    label="Right now, my setup only has one cluster which is my Raspberry Pi 5."
+/>
+
+For my local network, I use **pi-hole** to block ads and trackers across my network, enhancing privacy and performance. It's a great addition to my setup, ensuring a cleaner browsing experience for all devices connected to my home network. It also provides me with local DNS resolution, which is useful for accessing my services without needing to remember IP addresses. So basically I set my network DNS to point to my Pi-hole, and it handles all DNS queries locally.
+
+<ImageWithLabel
+    src="/images/projects/my-first-raspberry-pi/pi-hole-dns.png"
+    width="1280"
+    height="200"
+    alt="pi-hole in Action"
+    label="My main PC network uses Pi-hole local IP 192.168.50.242 as DNS."
+/>
+
+Next, I'm planning to use a **virtual private server (VPS)** because it seems that my ISP blocks port 80 from external access. This restriction prevents me from running certificate challenges **—sad**. Since the VPS has its own public IP, I should be able to enable HTTPS using Certbot. As a result, all my other sites are accessible securely over HTTPS.
+
+The VPS will act as my **load balancer**. It will listen on port 80 and route incoming requests to the appropriate endpoints on my home server, organized by traefik hostnames and accessed via my **cloudflared tunnel** or just using **port-forwarding from my router's public IP**.
+
+## Conclusion
+
+I'm excited to keep expanding my setup with more sensors and to explore further automation using Home Assistant. **I might even try to run and train my own AI model once I finished building my PC**. Stay tuned for more updates as I dive deeper into the world of homelab and some smart home technology!
+
+<GiscusMdx locale="en" slug="projects/my-first-rpi5" />

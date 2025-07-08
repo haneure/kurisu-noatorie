@@ -5,9 +5,23 @@ import RecentPosts from '@/components/recent-posts'
 import RecentProjects from '@/components/recent-projects'
 import { homePageMetadata } from '@/lib/metadata/home'
 import { Metadata } from 'next'
+import { getMessages } from 'next-intl/server'
 import React from 'react'
 
-export const metadata: Metadata = homePageMetadata
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const messages = await getMessages({locale})
+  const title = messages.Metadata?.siteName;
+  return {
+    title
+  }
+}
+
+// export const metadata: Metadata = homePageMetadata
 
 export default async function Home({
   params

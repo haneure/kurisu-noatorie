@@ -1,6 +1,7 @@
 import Projects from '@/components/projects'
 import { getPosts } from '@/lib/posts'
 import { ArrowBigLeftDash } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 
 type RecentProjectsProps = {
@@ -8,12 +9,13 @@ type RecentProjectsProps = {
 }
 
 export default async function RecentProjects({ locale }: RecentProjectsProps) {
-  const projects = await getPosts('projects', 4)
+  const projects = await getPosts('projects', 4, locale)
+  const t = await getTranslations('RecentProjects');
 
   return (
     <section className='pb-12'>
       <div>
-        <h2 className='title bg-badge mb-6'>Recent projects</h2>
+        <h2 className='title bg-badge mb-6'>{t('recentProjects')}</h2>
         <Projects locale={locale} projects={projects} />
 
         <Link

@@ -37,7 +37,7 @@ export default function Projects({
               <div className='absolute inset-x-0 bottom-0 translate-y-2 px-6 py-5 text-center opacity-0 transition-all delay-100 duration-500 group-hover:translate-y-1 group-hover:opacity-100'>
                 <p className='text-primary-foreground text-xs font-light'>
                   <span className='bg-foreground/60 inline-block rounded-t-lg px-2 py-1'>
-                    {formatDate(project.publishedAt ?? '')}
+                    {formatDate(project.publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
                   </span>
                 </p>
                 <h2 className='text-primary-foreground line-clamp-1 text-xl no-underline'>

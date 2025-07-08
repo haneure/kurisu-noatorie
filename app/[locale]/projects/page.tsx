@@ -7,7 +7,7 @@ export default async function ProjectsPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const projects = await getPosts('projects')
+  const projects = await getPosts('projects', undefined, locale)
 
   return (
     <section className='pt-40 pb-24'>

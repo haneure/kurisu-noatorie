@@ -1,0 +1,33 @@
+{
+    "Metadata": {
+        "type": "article",
+        "siteName": "クリス の アトリエ"
+    },
+     "Intro": {
+        "home": "クリス の アトリエ へ ようこそー",
+        "intro": "Hey, I'm ",
+        "name": "クリス",
+        "bio": "インドネシア出身のソフトウェアエンジニアです。常に新しいことを学ぼうとしています。新しいことを学ぶのは決して飽きることがないからです! 最近はホームラボを作り始めました。このサイトも自分のホムラボでホストしています。あとは、フリーランスとしてLive2Dリガーとして活動しています。"
+    },
+    "CurrentStruggle": {
+        "currentStruggle": "最近の障害あるいは悩み",
+        "currentStruggleContent": "I'm still unable to figure out how to serve my <strong>WebSocket (Socket.IO) server through a Cloudflared tunnel</strong>. I've tried:",
+        "currentStruggleList": "<ul><li>Bypassed wsRule</li><li>Added policies for my applications</li></ul>",
+        "update": "Updates",
+        "updateContent": "I tried hosting the WebSocket directly on my Raspberry Pi, but had no luck. Since it's using HTTP, my website (which uses HTTPS) can't connect to it. The website is hosted via a Cloudflared Tunnel (HTTPS). I tried securing the WebSocket with SSL certificates using Certbot, but it seems to require a static external IP so Certbot can access it—despite the fact that I've added DNS records pointing to my WebSocket's IP.",
+        "discussion": "If you have some advice / discussion, feel free to drop it here:"
+    },
+    "RecentPosts": {
+        "recentPosts": "最近の投稿"
+    },
+    "RecentProjects": {
+        "recentProjects": "最近のプロジェクト"
+    },
+    "HomePage": {
+        "list1": "Get started by editing",
+        "list2": "List 2"
+    },
+    "Post": {
+        "back": "投稿リストに戻る"
+    }
+}

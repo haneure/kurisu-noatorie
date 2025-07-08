@@ -1,14 +1,17 @@
 import MDXContent from '@/components/mdx-content'
+import { getAllLocaleAvailability, LOCALE_MAP, SUPPORTED_LOCALES, useSafeTranslations } from '@/lib/metadata/i18n'
 import { getPostBySlug, getPosts, PostData } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
+import { Metadata } from 'next'
+import { createTranslator, useTranslations } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
-import { SUPPORTED_LOCALES, LOCALE_MAP, getLocaleAvailability } from '@/lib/metadata/i18n'
-import { Metadata } from 'next'
 
+const SITE_URL = process.env.SITE_URL || 'https://kurisu.noatorie.com' // Fallback if not defined
 
 export async function generateStaticParams() {
   const posts = await getPosts('posts')
@@ -23,14 +26,16 @@ export async function generateStaticParams() {
   return params
 }
 
-export async function generateMetadata({ params }: { params: { locale:string, slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale:string, slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params
+  const messages = await getMessages({ locale: locale })
+  const t = await createTranslator({ locale: locale, messages })
   
-  if (! getLocaleAvailability(locale)) {
+  if (! getAllLocaleAvailability(locale)) {
     notFound()
   }
   
-  const post: PostData | null = await getPostBySlug(params.slug, 'posts')
+  const post: PostData | null = await getPostBySlug(slug, 'posts', locale)
 
   if (!post) {
     notFound()
@@ -49,18 +54,18 @@ export async function generateMetadata({ params }: { params: { locale:string, sl
       title,
       description: summary,
       authors: author,
-      url: `https://kurisu.noatorie.com/posts/${slug}`,
+      url: `${SITE_URL}/posts/${slug}`,
       images: image,
       publishedTime: publishedAt,
-      type: 'article',
+      type: t('Metadata.type') as 'article',
       locale: localeCode,
-      siteName: 'Kurisu Noatorie',
+      siteName: t('Metadata.siteName'),
     },
     alternates: {
-      canonical: `https://kurisu.noatorie.com/${locale}/posts/${slug}`,
+      canonical: `${SITE_URL}/${locale}/posts/${slug}`,
       languages: {
-        'en-US': `https://kurisu.noatorie.com/en/posts/${slug}`,
-        'ja-JP': `https://kurisu.noatorie.com/ja/posts/${slug}`,
+        'en-US': `${SITE_URL}/en/posts/${slug}`,
+        'ja-JP': `${SITE_URL}/ja/posts/${slug}`,
       },
     },
   }
@@ -72,12 +77,14 @@ export default async function Page({
   params: Promise<{ locale: string, slug: string }>
 }) {
   const { locale, slug } = await params
+  const messages = await getMessages({ locale: locale })
+  const t = await createTranslator({ locale: locale, messages })
 
-  if (! getLocaleAvailability(locale)) {
+  if (! getAllLocaleAvailability(locale)) {
     notFound()
   }
 
-  const posts: PostData | null = await getPostBySlug(slug, 'posts')
+  const posts: PostData | null = await getPostBySlug(slug, 'posts', locale)
 
   if (!posts) {
     notFound()
@@ -94,7 +101,7 @@ export default async function Page({
           className='text-muted-foreground hover:text-foreground mb-8 inline-flex items-center gap-2 text-sm font-light transition-colors'
         >
           <ArrowLeftIcon className='h-5 w-5' />
-          <span>Back to posts</span>
+          <span>{t('Post.back')}</span>
         </Link>
 
         {image && (
@@ -111,7 +118,7 @@ export default async function Page({
         <header>
           <h1 className='title'>{title}</h1>
           <p className='text-muted-foreground mt-3 text-xs'>
-            {author} / {formatDate(publishedAt ?? '')}
+            {author} / {formatDate(publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
           </p>
         </header>
 

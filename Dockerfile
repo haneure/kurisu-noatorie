@@ -11,7 +11,7 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpm run build
+RUN pnpm run build && pnpm run export
 
 # Step 2: Serve with NGINX
 FROM nginx:latest

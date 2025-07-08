@@ -34,31 +34,31 @@ type HeaderProps = {
 }
 
 export default function Header({ locale }: HeaderProps) {
-  const pathname = usePathname();
+  const pathname = usePathname()
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const [testLocale, setLocale] = useState<string>("");
+  const [, setLocale] = useState<string>('')
 
   const NAV_ITEMS = [
     { href: `/${locale}/posts`, label: 'Posts' },
     { href: `/${locale}/projects`, label: 'Projects' },
     { href: `/${locale}/contact`, label: 'Contact' },
-    { href: `/${locale}/stats`, label: 'Status' },
+    { href: `/${locale}/stats`, label: 'Status' }
   ]
 
   useEffect(() => {
     const cookieLocale = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("MYNEXTAPP_LOCALE="))
-    ?.split("=")[1];
+      .split('; ')
+      .find(row => row.startsWith('MYNEXTAPP_LOCALE='))
+      ?.split('=')[1]
 
-    if(cookieLocale) {
+    if (cookieLocale) {
       setLocale(cookieLocale)
     } else {
-      const browserLocale = navigator.language.slice(0, 2);
+      const browserLocale = navigator.language.slice(0, 2)
       setLocale(browserLocale)
-      document.cookie = `MYNEXTAPP_LOCALE=${browserLocale}`;
-      
+      document.cookie = `MYNEXTAPP_LOCALE=${browserLocale}`
+
       // No need to refresh here, will be handled in LocaleSwitcher
       // router.refresh();
     }
@@ -177,15 +177,15 @@ export default function Header({ locale }: HeaderProps) {
         </div>
 
         {/* Center: Desktop Nav */}
-        <div className="hidden sm:flex flex-1 justify-center">
-          <ul className="hidden sm:flex text-primary items-center justify-center gap-6 font-mono">
-            {NAV_ITEMS.map((item) => (
+        <div className='hidden flex-1 justify-center sm:flex'>
+          <ul className='text-primary hidden items-center justify-center gap-6 font-mono sm:flex'>
+            {NAV_ITEMS.map(item => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   className={`transition-colors hover:underline hover:underline-offset-[4px] ${
                     pathname === item.href
-                      ? 'underline underline-offset-[4px] text-foreground'
+                      ? 'text-foreground underline underline-offset-[4px]'
                       : 'text-primary'
                   }`}
                 >
@@ -196,15 +196,15 @@ export default function Header({ locale }: HeaderProps) {
           </ul>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className='flex items-center gap-2'>
           {/* Mobile Hamburger Menu */}
-          <div className="sm:hidden flex items-center">
+          <div className='flex items-center sm:hidden'>
             <DropdownMenu>
-              <DropdownMenuTrigger className="focus:outline-none hover:scale-110 transition-transform duration-200 ease-in-out">
-                <Menu className="w-9 h-6 text-primary" />
+              <DropdownMenuTrigger className='transition-transform duration-200 ease-in-out hover:scale-110 focus:outline-none'>
+                <Menu className='text-primary h-6 w-9' />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {NAV_ITEMS.map((item) => (
+              <DropdownMenuContent align='end'>
+                {NAV_ITEMS.map(item => (
                   <DropdownMenuItem key={item.href} asChild>
                     <Link href={item.href}>{item.label}</Link>
                   </DropdownMenuItem>

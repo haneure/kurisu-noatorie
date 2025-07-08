@@ -3,8 +3,8 @@ import Intro from '@/components/intro'
 import NewsletterForm from '@/components/newsletter-form'
 import RecentPosts from '@/components/recent-posts'
 import RecentProjects from '@/components/recent-projects'
-import { homePageMetadata } from '@/lib/metadata/home'
-import { Metadata } from 'next'
+// import { homePageMetadata } from '@/lib/metadata/home'
+// import { Metadata } from 'next'
 import { getMessages } from 'next-intl/server'
 import React from 'react'
 
@@ -14,8 +14,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const messages = await getMessages({locale})
-  const title = messages.Metadata?.siteName;
+  const messages = await getMessages({ locale })
+  const title = messages.Metadata?.siteName
   return {
     title
   }

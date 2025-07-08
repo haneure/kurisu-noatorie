@@ -1,27 +1,27 @@
 'use client'
 
-import { redirect, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
-    const router = useRouter()
-    const [locale, setLocale] = useState<string>("");
-  
+  const router = useRouter()
+  const [, setLocale] = useState<string>('')
+
   useEffect(() => {
     const cookieLocale = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("MYNEXTAPP_LOCALE="))
-    ?.split("=")[1];
+      .split('; ')
+      .find(row => row.startsWith('MYNEXTAPP_LOCALE='))
+      ?.split('=')[1]
 
-    if(cookieLocale) {
+    if (cookieLocale) {
       setLocale(cookieLocale)
     } else {
-      const browserLocale = navigator.language.slice(0, 2);
+      const browserLocale = navigator.language.slice(0, 2)
       setLocale(browserLocale)
-      document.cookie = `MYNEXTAPP_LOCALE=${browserLocale}`;
+      document.cookie = `MYNEXTAPP_LOCALE=${browserLocale}`
 
       // No need to refresh here, will be handled in LocaleSwitcher
-      router.refresh();
+      router.refresh()
     }
   }, [router])
 

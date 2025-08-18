@@ -1,10 +1,14 @@
 import MDXContent from '@/components/mdx-content'
-import { getAllLocaleAvailability, LOCALE_MAP, SUPPORTED_LOCALES, useSafeTranslations } from '@/lib/metadata/i18n'
+import {
+  getAllLocaleAvailability,
+  LOCALE_MAP,
+  SUPPORTED_LOCALES
+} from '@/lib/metadata/i18n'
 import { getPostBySlug, getPosts, PostData } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { Metadata } from 'next'
-import { createTranslator, useTranslations } from 'next-intl'
+import { createTranslator } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -26,15 +30,19 @@ export async function generateStaticParams() {
   return params
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale:string, slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string; slug: string }>
+}): Promise<Metadata> {
   const { locale, slug } = await params
   const messages = await getMessages({ locale: locale })
   const t = await createTranslator({ locale: locale, messages })
-  
-  if (! getAllLocaleAvailability(locale)) {
+
+  if (!getAllLocaleAvailability(locale)) {
     notFound()
   }
-  
+
   const post: PostData | null = await getPostBySlug(slug, 'posts', locale)
 
   if (!post) {
@@ -44,7 +52,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale:st
   const { metadata } = post
   const { title, summary, image, author, publishedAt } = metadata
 
-    // Set locale code for metadata: map simple locale to proper IETF tag
+  // Set locale code for metadata: map simple locale to proper IETF tag
   const localeCode = LOCALE_MAP[locale as keyof typeof LOCALE_MAP] ?? 'en-US'
 
   return {
@@ -59,28 +67,28 @@ export async function generateMetadata({ params }: { params: Promise<{ locale:st
       publishedTime: publishedAt,
       type: t('Metadata.type') as 'article',
       locale: localeCode,
-      siteName: t('Metadata.siteName'),
+      siteName: t('Metadata.siteName')
     },
     alternates: {
       canonical: `${SITE_URL}/${locale}/posts/${slug}`,
       languages: {
         'en-US': `${SITE_URL}/en/posts/${slug}`,
-        'ja-JP': `${SITE_URL}/ja/posts/${slug}`,
-      },
-    },
+        'ja-JP': `${SITE_URL}/ja/posts/${slug}`
+      }
+    }
   }
 }
 
 export default async function Page({
   params
 }: {
-  params: Promise<{ locale: string, slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }) {
   const { locale, slug } = await params
   const messages = await getMessages({ locale: locale })
   const t = await createTranslator({ locale: locale, messages })
 
-  if (! getAllLocaleAvailability(locale)) {
+  if (!getAllLocaleAvailability(locale)) {
     notFound()
   }
 
@@ -118,7 +126,8 @@ export default async function Page({
         <header>
           <h1 className='title'>{title}</h1>
           <p className='text-muted-foreground mt-3 text-xs'>
-            {author} / {formatDate(publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
+            {author} /{' '}
+            {formatDate(publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
           </p>
         </header>
 

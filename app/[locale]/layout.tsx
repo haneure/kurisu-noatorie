@@ -1,8 +1,8 @@
-import { CatChatProvider } from '@/components/cats/cat-chat-provider'
+// import { CatChatProvider } from '@/components/cats/cat-chat-provider'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Providers from '@/components/providers'
-import type { Metadata } from 'next'
+// import type { Metadata } from 'next'
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -16,7 +16,7 @@ import type { Metadata } from 'next'
 
 export default async function LocaleLayout({
   children,
-  params,
+  params
 }: {
   children: React.ReactNode
   params: Promise<{ locale: string }>

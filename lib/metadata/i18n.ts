@@ -1,5 +1,7 @@
-import { useTranslations as useNextTranslations, useLocale } from 'next-intl'
 import defaultEn from '@/messages/en.json'
+import { useLocale, useTranslations as useNextTranslations } from 'next-intl'
+
+type Messages = Record<string, Record<string, string>>
 
 export const SUPPORTED_LOCALES = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -35,7 +37,7 @@ export function useSafeTranslations(namespace?: string) {
         );
       }
 
-      return isMissing ? defaultEn?.[namespace]?.[key] || key : value;
+      return isMissing ? (defaultEn as Messages)?.[namespace]?.[key] || key : value;
     } catch {
       if (process.env.NODE_ENV === 'development') {
         console.warn(
@@ -43,7 +45,7 @@ export function useSafeTranslations(namespace?: string) {
         );
       }
 
-      return defaultEn?.[namespace || '']?.[key] || key;
+      return (defaultEn as Messages)?.[namespace || '']?.[key] || key;
     }
   };
 
@@ -60,7 +62,7 @@ export function useSafeTranslations(namespace?: string) {
         );
       }
 
-      const fallback = defaultEn?.[namespace || '']?.[key] || key;
+      const fallback = (defaultEn as Messages)?.[namespace || '']?.[key] || key;
       return fallback;
     }
   };

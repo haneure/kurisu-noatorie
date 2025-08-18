@@ -10,10 +10,7 @@ type ProjectsProps = {
   projects: PostMetadata[]
 }
 
-export default function Projects({ 
-  locale,
-  projects
- }: ProjectsProps) {
+export default function Projects({ locale, projects }: ProjectsProps) {
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
       {projects.map(project => (
@@ -37,7 +34,10 @@ export default function Projects({
               <div className='absolute inset-x-0 bottom-0 translate-y-2 px-6 py-5 text-center opacity-0 transition-all delay-100 duration-500 group-hover:translate-y-1 group-hover:opacity-100'>
                 <p className='text-primary-foreground text-xs font-light'>
                   <span className='bg-foreground/60 inline-block rounded-t-lg px-2 py-1'>
-                    {formatDate(project.publishedAt ?? '', locale === 'ja' ? 'ja-JP' : 'en-US')}
+                    {formatDate(
+                      project.publishedAt ?? '',
+                      locale === 'ja' ? 'ja-JP' : 'en-US'
+                    )}
                   </span>
                 </p>
                 <h2 className='text-primary-foreground line-clamp-1 text-xl no-underline'>
@@ -52,16 +52,12 @@ export default function Projects({
               <h3 className='text-lg font-semibold'>{project.title}</h3>
               <p className='text-muted-foreground text-sm'>{project.summary}</p>
             </div>
-
             <div className='flex w-full flex-wrap justify-center gap-2 p-2 text-center opacity-0 transition-all duration-500 ease-in-out peer-hover:translate-y-[-3.5rem] peer-hover:opacity-100'>
-              <Badge variant='default'>Godot</Badge>
-              <Badge variant='default'>Python</Badge>
-              <Badge variant='default'>Go</Badge>
-              <Badge variant='default'>DevOps</Badge>
-              <Badge variant='default'>Godot</Badge>
-              <Badge variant='default'>Python</Badge>
-              <Badge variant='default'>Go</Badge>
-              <Badge variant='default'>DevOps</Badge>
+              {project.badges?.map((badge: string) => (
+                <Badge key={badge} variant='default'>
+                  {badge}
+                </Badge>
+              ))}
             </div>
           </Link>
         </li>

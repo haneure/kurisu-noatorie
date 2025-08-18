@@ -5,18 +5,15 @@ import React from 'react'
 import kurisu from '@/public/images/placeholder.png'
 // import { useTranslations } from 'next-intl'
 import { useSafeTranslations } from '@/lib/metadata/i18n'
-import { useTranslations } from 'next-intl'
 
 export default function Intro() {
-  const {text} = useSafeTranslations('Intro')
+  const { text } = useSafeTranslations('Intro')
 
   // const t = useTranslations('Intro')
   return (
     <section className='flex flex-col items-start gap-x-10 gap-y-4 pb-6 md:flex-row md:items-center'>
       <div className='mt-2 flex-1 md:mt-0'>
-        <h1 className='title mb-4 no-underline'>
-          {text('home')}
-        </h1>
+        <h1 className='title mb-4 no-underline'>{text('home')}</h1>
         <h1 className='title mb-4 no-underline'>
           <span>{text('intro')}</span>
           <span className='text-foreground'>{text('name')}</span>

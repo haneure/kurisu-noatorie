@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kurisu.noatorie.com
+
+# Sitemaps
+Sitemap: https://kurisu.noatorie.com/sitemap.xml

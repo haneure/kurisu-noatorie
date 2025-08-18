@@ -6,7 +6,6 @@
     "dev": "next dev --turbopack",
     "socket": "tsx socket-server.ts",
     "build": "next build",
-    "export": "next export",
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"

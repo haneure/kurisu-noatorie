@@ -22,7 +22,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  console.log('locale:', locale)
 
   return (
     <div>

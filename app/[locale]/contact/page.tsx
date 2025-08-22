@@ -1,5 +1,15 @@
 import MouseDistanceDrivenTextAnimation from '@/components/animations/mouse-distance-driven-text-animation'
 import ContactForm from '@/components/contact-form'
+import { SUPPORTED_LOCALES } from '@/lib/metadata/i18n'
+
+export async function generateStaticParams() {
+  const params = []
+  for (const locale of SUPPORTED_LOCALES) {
+    params.push({ locale: locale.code })
+  }
+  return params
+}
+
 
 export default function Contact() {
   const texts = [

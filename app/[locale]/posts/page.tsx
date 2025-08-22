@@ -1,6 +1,11 @@
 import PostsWithSearch from '@/components/posts-with-search'
+import { SUPPORTED_LOCALES } from '@/lib/metadata/i18n'
 import { getPosts } from '@/lib/posts'
 import React from 'react'
+
+export async function generateStaticParams() {
+  return SUPPORTED_LOCALES.map(locale => ({ locale: locale.code }))
+}
 
 export default async function PostsPage({
   params

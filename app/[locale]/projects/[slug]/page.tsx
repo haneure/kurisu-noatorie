@@ -6,13 +6,19 @@ import { getPostBySlug, getPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { notFound } from 'next/navigation'
+import { SUPPORTED_LOCALES } from '@/lib/metadata/i18n'
 
 export async function generateStaticParams() {
   const projects = await getPosts('projects')
-  const slugs = projects.map(project => ({ slug: project.slug }))
-
-  return slugs
+  const params = []
+  for (const locale of SUPPORTED_LOCALES) {
+    for (const project of projects) {
+      params.push({ locale: locale.code, slug: project.slug })
+    }
+  }
+  return params
 }
+
 
 export default async function Project({
   params

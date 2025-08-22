@@ -69,7 +69,7 @@ export async function subscribe(data: { email: string }) {
     logger.info('Email added successfully:', data)
 
     return { success: true }
-  } catch ( error) {
+  } catch (error) {
     logger.error('Error adding email:', error)
     return { error: 'Error sending email' }
   }

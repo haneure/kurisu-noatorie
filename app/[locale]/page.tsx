@@ -3,10 +3,15 @@ import Intro from '@/components/intro'
 import NewsletterForm from '@/components/newsletter-form'
 import RecentPosts from '@/components/recent-posts'
 import RecentProjects from '@/components/recent-projects'
+import { SUPPORTED_LOCALES } from '@/lib/metadata/i18n'
 // import { homePageMetadata } from '@/lib/metadata/home'
 // import { Metadata } from 'next'
 import { getMessages } from 'next-intl/server'
 import React from 'react'
+
+export async function generateStaticParams() {
+  return SUPPORTED_LOCALES.map(locale => ({ locale: locale.code }))
+}
 
 export async function generateMetadata({
   params

@@ -42,8 +42,7 @@ export default function Header({ locale }: HeaderProps) {
   const NAV_ITEMS = [
     { href: `/${locale}/posts`, label: 'Posts' },
     { href: `/${locale}/projects`, label: 'Projects' },
-    { href: `/${locale}/contact`, label: 'Contact' },
-    { href: `/${locale}/stats`, label: 'Status' }
+    { href: `/${locale}/contact`, label: 'Contact' }
   ]
 
   useEffect(() => {

@@ -32,3 +32,7 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
+          build-args: |
+            RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+            CHRIS_EMAIL=${{ secrets.CHRIS_EMAIL }}
+            RESEND_AUDIENCE_ID=${{ secrets.RESEND_AUDIENCE_ID }}

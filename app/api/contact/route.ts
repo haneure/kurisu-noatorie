@@ -5,11 +5,29 @@ import { Resend } from 'resend'
 import { string } from 'zod'
 import { NextRequest, NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-const chrisEmail = string().parse(process.env.CHRIS_EMAIL)
+// Handle missing environment variables gracefully during build
+const resendApiKey = process.env.RESEND_API_KEY
+const chrisEmailRaw = process.env.CHRIS_EMAIL
+
+if (!resendApiKey || !chrisEmailRaw) {
+  console.warn(
+    'Missing environment variables for contact API. This is expected during build.'
+  )
+}
+
+const resend = resendApiKey ? new Resend(resendApiKey) : null
+const chrisEmail = chrisEmailRaw ? string().parse(chrisEmailRaw) : null
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if environment variables are available
+    if (!resend || !chrisEmail) {
+      return NextResponse.json(
+        { error: 'Service temporarily unavailable' },
+        { status: 503 }
+      )
+    }
+
     const data = await request.json()
     const result = ContactFormSchema.safeParse(data)
 

@@ -3,10 +3,26 @@ import { logger } from '@/lib/logger'
 import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Handle missing environment variables gracefully during build
+const resendApiKey = process.env.RESEND_API_KEY
+const audienceId = process.env.RESEND_AUDIENCE_ID
+
+if (!resendApiKey || !audienceId) {
+  console.warn('Missing environment variables for newsletter API. This is expected during build.')
+}
+
+const resend = resendApiKey ? new Resend(resendApiKey) : null
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if environment variables are available
+    if (!resend || !audienceId) {
+      return NextResponse.json(
+        { error: 'Service temporarily unavailable' },
+        { status: 503 }
+      )
+    }
+
     const data = await request.json()
     const result = NewsletterFormSchema.safeParse(data)
 
@@ -24,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     const { data: contactData, error } = await resend.contacts.create({
       email: email,
-      audienceId: process.env.RESEND_AUDIENCE_ID as string
+      audienceId: audienceId
     })
 
     if (!contactData || error) {

@@ -1,5 +1,10 @@
 import Projects from '@/components/projects'
+import { SUPPORTED_LOCALES } from '@/lib/metadata/i18n'
 import { getPosts } from '@/lib/posts'
+
+export async function generateStaticParams() {
+  return SUPPORTED_LOCALES.map(locale => ({ locale: locale.code }))
+}
 
 export default async function ProjectsPage({
   params

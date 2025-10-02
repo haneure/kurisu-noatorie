@@ -1,14 +1,15 @@
-import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
+import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin()
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true
+  // Enable standalone output for Docker deployment
+  output: 'standalone',
+  // Skip environment variable validation during build
+  env: {
+    SKIP_ENV_VALIDATION: 'true'
   }
-};
+}
 
-export default withNextIntl(nextConfig);
+export default withNextIntl(nextConfig)

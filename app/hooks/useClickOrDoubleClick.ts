@@ -12,10 +12,10 @@ export function useClickOrDoubleClick({
   const clickTimer = useRef<NodeJS.Timeout | null>(null)
 
   const handleClick = () => {
-    console.log(clickTimer.current)
+    // console.log(clickTimer.current)
     if (clickTimer.current) {
-        console.log('Clearing click timer')
-        console.log(clickTimer.current)
+        // console.log('Clearing click timer')
+        // console.log(clickTimer.current)
       clearTimeout(clickTimer.current)
       clickTimer.current = null
       doubleClick()

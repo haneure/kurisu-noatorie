@@ -65,11 +65,11 @@ export default function Header({ locale }: HeaderProps) {
 
   const handleClick = useClickOrDoubleClick({
     singleClick: () => {
-      console.log('Single click')
+      // console.log('Single click')
       setOpen(true)
     },
     doubleClick: () => {
-      console.log('Double click')
+      // console.log('Double click')
       router.push(`/${locale}`)
     }
   })

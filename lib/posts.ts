@@ -70,7 +70,7 @@ export async function getPosts(
   // Only use base fallback `.en.mdx` files
   // const mdxFiles = files.filter(f => /\.en\.mdx$/.test(f))
 
-  console.log("search mdx", locale)
+  // console.log("search mdx", locale)
   // const mdxFiles = files.filter(f => new RegExp(`\\.${locale}\\.mdx$`).test(f))
 
     // Files for the current locale, e.g. '*.ja.mdx' or '*.en.mdx'
@@ -116,7 +116,7 @@ export async function getPosts(
 export async function getPostMetadata(filepath: string, dir: string): Promise<PostMetadata> {
   const rootDirectory = path.join(process.cwd(), 'content', dir)
   const slug = filepath.replace(/\.([a-z]{2})\.mdx$/, '') // removes `.en.mdx`, `.ja.mdx`, etc.
-  console.log("getPostMetadata", slug)
+  // console.log("getPostMetadata", slug)
   const filePath = path.join(rootDirectory, filepath)
   const fileContent = await fs.readFile(filePath, { encoding: 'utf-8' })
   const { data } = matter(fileContent)

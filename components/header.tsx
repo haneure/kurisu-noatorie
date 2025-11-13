@@ -92,7 +92,7 @@ export default function Header({ locale }: HeaderProps) {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Image
-                        src='/images/logo.png'
+                        src='/images/AR_Logo.png'
                         alt='Logo'
                         width={48}
                         height={48}
@@ -116,7 +116,9 @@ export default function Header({ locale }: HeaderProps) {
                 {/* <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild> */}
-                <DropdownMenuLabel>Back to Noatorie&apos;s</DropdownMenuLabel>
+                <DropdownMenuLabel className='text-center hover:underline hover:underline-offset-4'>
+                  Back to Home
+                </DropdownMenuLabel>
                 {/* </TooltipTrigger>
                     <TooltipContent>
                       Double click to go back to the main page!
@@ -125,7 +127,7 @@ export default function Header({ locale }: HeaderProps) {
                 </TooltipProvider> */}
               </Link>
               <DropdownMenuSeparator />
-              <Link href='https://noatorie.com/'>
+              <Link href='https://vgen.co/noatorie/portfolio'>
                 <DropdownMenuItem className='cursor-pointer'>
                   <Image
                     src='/images/cat.svg'

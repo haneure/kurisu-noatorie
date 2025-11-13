@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 // TODO:
 //  Change to actual image kurisu.png later
-import kurisu from '@/public/images/placeholder.png'
+import kurisu from '@/public/images/noatorie.jpg'
 // import { useTranslations } from 'next-intl'
 import { useSafeTranslations } from '@/lib/metadata/i18n'
 
@@ -28,9 +28,9 @@ export default function Intro() {
           {text('bio')}
         </p>
       </div>
-      <div className='relative'>
+      <div className='relative h-44 w-44 overflow-hidden rounded-full'>
         <Image
-          className='flex-1 rounded-lg grayscale'
+          className='border-foreground/10 shadow-foreground/10 hover:border-foreground/20 dark:border-foreground/20 dark:shadow-foreground/20 h-full w-full scale-105 border-4 border-solid object-cover shadow-lg transition-all duration-300 hover:scale-110'
           src={kurisu}
           alt='Christian Halim'
           width={175}

@@ -1,0 +1,23 @@
+name: Cleanup Old Container Images
+
+on:
+    schedule:
+        - cron: "0 2 * * 0" # Run every Sunday at 2 AM UTC
+    workflow_dispatch: # Allow manual trigger
+
+jobs:
+    cleanup:
+        runs-on: ubuntu-latest
+        permissions:
+            packages: write
+            contents: read
+
+        steps:
+            - name: Delete old package versions
+              uses: actions/delete-package-versions@v4
+              with:
+                  package-name: "kurisu-noatorie"
+                  package-type: "container"
+                  delete-only-untagged-versions: "false"
+                  min-versions-to-keep: 3
+                  ignore-versions: "latest"

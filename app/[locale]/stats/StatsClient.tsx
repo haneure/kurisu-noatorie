@@ -28,9 +28,14 @@ export default function StatsClient() {
   } | null>(null)
   const [, setError] = useState('')
   const [fetchTrigger, setFetchTrigger] = useState(0) // Used to reset ProgressBar
+  const [sensorFetchTrigger, setSensorFetchTrigger] = useState(0) // Used to reset sensor ProgressBar
 
   const fetchData = async () => {
-    const res = await fetch('/api/system')
+    const res = await fetch(process.env.NEXT_PUBLIC_RPI_5_API_URL + '/stats', {
+      headers: {
+        Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_RPI_5_API_KEY
+      }
+    })
     const data = await res.json()
     setSystemInfo(data)
   }
@@ -38,10 +43,10 @@ export default function StatsClient() {
   const fetchTempAndHumid = async () => {
     try {
       const response = await fetch(
-        'https://temp-and-humid.noatorie.com/api/temp-and-humid-sensor',
+        process.env.NEXT_PUBLIC_RPI_5_API_URL + '/sensors/dht22-room',
         {
           headers: {
-            Authorization: 'Bearer your_secret_api_key'
+            Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_RPI_5_API_KEY
           }
         }
       )
@@ -64,12 +69,23 @@ export default function StatsClient() {
   useEffect(() => {
     fetchData()
     fetchTempAndHumid()
-    const interval = setInterval(() => {
+
+    // Fetch system stats every 5 seconds
+    const statsInterval = setInterval(() => {
       fetchData()
-      fetchTempAndHumid()
       setFetchTrigger(prev => prev + 1) // Trigger ProgressBar reset
     }, 5000)
-    return () => clearInterval(interval)
+
+    // Fetch DHT22 sensor data every 30 seconds to avoid sensor damage
+    const sensorInterval = setInterval(() => {
+      fetchTempAndHumid()
+      setSensorFetchTrigger(prev => prev + 1) // Trigger sensor ProgressBar reset
+    }, 30000)
+
+    return () => {
+      clearInterval(statsInterval)
+      clearInterval(sensorInterval)
+    }
   }, [])
 
   if (!systemInfo) return <div className='text-foreground p-6'>Loading...</div>
@@ -117,6 +133,7 @@ export default function StatsClient() {
                 </span>
               </div>
             </div>
+            <ProgressBar key={sensorFetchTrigger} duration={30000} />
           </div>
 
           <div className='space-y-2'>
@@ -139,8 +156,10 @@ export default function StatsClient() {
             <div className='text-muted-foreground flex justify-between text-sm'>
               <span>Used</span>
               <span>
-                {systemInfo.memoryUsage.used.toFixed(2)} /{' '}
-                {systemInfo.memoryUsage.total.toFixed(2)} GB
+                {(systemInfo.memoryUsage.used / 1024 / 1024 / 1024).toFixed(2)}{' '}
+                /{' '}
+                {(systemInfo.memoryUsage.total / 1024 / 1024 / 1024).toFixed(2)}{' '}
+                GB
               </span>
             </div>
             <Progress
